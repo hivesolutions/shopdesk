@@ -3,7 +3,7 @@
     {% block head %}
         {% include "partials/content_type.html.tpl" %}
         {% include "partials/includes.html.tpl" %}
-        <title>webook{% block title %}{% endblock %}</title>
+        <title>Shopdesk{% block title %}{% endblock %}</title>
     {% endblock %}
 </head>
 <body class="ux full">
