@@ -9,7 +9,12 @@
 <body class="ux full">
     <div id="header" class="header">
         {% include "partials/header.html.tpl" %}
-        {% block header %}{% endblock %}
+        {% block header %}
+            <ul class="side-links">
+                <li>Home</li>
+                <li>Orders</li>
+            </ul>
+        {% endblock %}
     </div>
     <div id="content" class="content">{% block content %}{% endblock %}</div>
     <div id="footer" class="footer">
