@@ -1,0 +1,6 @@
+[submodule "src/shopdesk/static/libs/uxf"]
+	path = src/shopdesk/static/libs/uxf
+	url = git@github.com:hivesolutions/uxf_bin.git
+[submodule "src/shopdesk/static/libs/layout"]
+	path = src/shopdesk/static/libs/layout
+	url = git@github.com:hivesolutions/layout.git
