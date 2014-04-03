@@ -2,33 +2,107 @@
 
 .top-bar {
     background-color: #cccccc;
-    height: 64px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0px 0px 0px 0px;
     position: static;
+    text-align: left;
     width: 100%;
 }
 
-.top-bar.black {
-    background-color: #2d2d2d;
+.top-bar.large {
+    height: 64px;
+    line-height: 64px;
 }
 
-.top-bar.blue {
-    background-color: #0072c6;
+.top-bar,
+.top-bar.grey {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #cccccc;
 }
 
-.top-bar.orange {
-    background-color: #eb503e;
+.top-bar > :first-child {
+    padding-left: 24px;
+}
+
+.top-bar > * {
+    display: inline-block;
+}
+
+.top-bar > .right {
+    float: right;
+    padding-right: 24px;
+}
+
+.top-bar > .logo {
+    background: transparent none no-repeat;
+    color: #2d2d2d;
+    font-size: 26px;
+    font-weight: bold;
+    height: 50px;
+    text-shadow: 1px 1px 1px #ffffff;
+    width: 172px;
+}
+
+.top-bar > .logo > a {
+    color: #2d2d2d;
+}
+
+.top-bar > .logo > a:hover {
+    border-bottom: none;
+    color: #1b75bb;
+}
+
+.top-bar > .text-field {
+    border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    font-size: 14px;
+    height: 32px;
+    margin-top: 9px;
+    transition: width 0.2s;
+    -webkit-transition: width 0.2s;
+    vertical-align: top;
+    width: 300px;
+}
+
+.top-bar > .text-field:focus {
+    width: 400px;
 }
 
 ul.side-links {
     border-right: 1px solid #eeeeee;
+    color: #2d2d2d;
     font-weight: bold;
     height: 100%;
     margin: 0px 0px 0px 0px;
+    padding: 24px 0px 24px 0px;
     text-align: left;
-    width: 240px;
+    text-transform: uppercase;
+    width: 200px;
 }
 
-ul.side-links li {
-    margin: 0px 0px 0px 0px;
-    padding: 12px 24px 12px 24px;
+ul.side-links > li {
+    cursor: pointer;
+    margin: 0px 0px 14px 0px;
+    padding: 0px 8px 0px 24px;
+}
+
+ul.side-links > li:last-child {
+    margin-bottom: 0px;
+}
+
+ul.side-links > li.selected {
+    background-color: transparent;
+    border-right: 2px solid #1b75bb;
+    color: #1b75bb;
+}
+
+ul.side-links > li:hover {
+    background-color: transparent;
+    color: #1b75bb;
+}
+
+ul.side-links > li.separator {
+    border-top: 1px solid #ebebeb;
 }

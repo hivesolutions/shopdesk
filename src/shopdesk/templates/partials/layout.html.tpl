@@ -12,10 +12,12 @@
         {% block header %}
             <ul class="side-links">
                 <li>Home</li>
-                <li>Orders</li>
+                <li class="selected">Orders</li>
                 <li>Products</li>
                 <li>Sales</li>
                 <li>Reports</li>
+                <li class="separator"></li>
+                <li>About</li>
             </ul>
         {% endblock %}
     </div>
