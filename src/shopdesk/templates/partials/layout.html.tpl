@@ -6,12 +6,26 @@
         <title>Shopdesk{% block title %}{% endblock %}</title>
     {% endblock %}
 </head>
-<body class="ux full">
+<body class="ux complete">
     <div id="header" class="header">
         {% include "partials/header.html.tpl" %}
         {% block header %}
             <ul class="side-links">
                 <li>Home</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
+                <li>Orders</li>
                 <li>Orders</li>
             </ul>
         {% endblock %}
