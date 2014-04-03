@@ -13,20 +13,9 @@
             <ul class="side-links">
                 <li>Home</li>
                 <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
-                <li>Orders</li>
+                <li>Products</li>
+                <li>Sales</li>
+                <li>Reports</li>
             </ul>
         {% endblock %}
     </div>
