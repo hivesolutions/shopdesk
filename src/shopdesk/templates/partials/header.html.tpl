@@ -1,1 +1,1 @@
-<div class="top-bar black"></div>
+<div class="top-bar blue"></div>
