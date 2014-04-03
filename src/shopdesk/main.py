@@ -8,8 +8,7 @@ class ShopdeskApp(appier.WebApp):
     def __init__(self):
         appier.WebApp.__init__(
             self,
-            name = "shopdesk",
-            locales = ("en_us", "pt_pt")
+            name = "shopdesk"
         )
 
 if __name__ == "__main__":
