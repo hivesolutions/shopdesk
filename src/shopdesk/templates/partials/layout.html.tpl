@@ -19,6 +19,8 @@
                 <li>Reports</li>
                 <li class="separator"></li>
                 <li>About</li>
+                <li class="swindow">Window</li>
+                <li class="hide">Hide</li>
             </ul>
         {% endblock %}
     </div>
