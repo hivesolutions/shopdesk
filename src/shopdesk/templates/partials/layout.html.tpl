@@ -26,14 +26,14 @@
             </ul>
         {% endblock %}
     </div>
-    <div id="content" class="content">
+    <div id="content" class="content {% block style %}{% endblock %}">
         <div class="content-header">
             <h1>{{ self.title() }}</h1>
             <div class="content-buttons">
                 {% block buttons %}{% endblock %}
             </div>
         </div>
-        <div class="content-container {% block style %}{% endblock %}">
+        <div class="content-container">
             {% block content %}{% endblock %}
         </div>
     </div>
