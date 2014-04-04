@@ -14,6 +14,10 @@ class BaseController(appier.Controller):
     def index(self):
         return self.template("index.html.tpl")
 
-    @appier.route("/countries", "GET")
-    def countries(self):
+    @appier.route("/table", "GET")
+    def table(self):
         return self.template("table.html.tpl")
+
+    @appier.route("/form", "GET")
+    def form(self):
+        return self.template("form.html.tpl")
