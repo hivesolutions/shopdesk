@@ -1,6 +1,6 @@
 {% extends "partials/layout.html.tpl" %}
 {% block title %}Countries{% endblock %}
-{% block style %}no-padding{% endblock %}
+{% block style %}no-header no-padding{% endblock %}
 {% block buttons %}
     {{ super() }}
     <div class="button button-color button-grey" data-link="/accounts/own/edit">Edit</div>
