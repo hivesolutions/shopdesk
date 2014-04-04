@@ -143,8 +143,10 @@
             </div>
         </div>
         <div class="separator strong"></div>
-        <span class="button button-color button-green" data-submit="true">Update</span>
-        <span class="or">or</span>
-        <span class="button button-color button-grey" data-link="/accounts/own">Cancel</span>
+        <div class="buttons">
+            <span class="button button-color button-green" data-submit="true">Update</span>
+            <span class="or">or</span>
+            <span class="button button-color button-grey" data-link="/accounts/own">Cancel</span>
+        </div>
     </form>
 {% endblock %}
