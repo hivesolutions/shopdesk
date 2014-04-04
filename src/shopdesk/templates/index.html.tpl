@@ -1,3 +1,15 @@
 {% extends "partials/layout.html.tpl" %}
 {% block content %}
+    <h1>About</h1>
+    <div class="quote">
+        The complete project was developed by the <a href="http://hive.pt">Hive Solutions</a><br/>
+        development team using only spare time.
+    </div>
+    <div class="separator-horizontal"></div>
+    <div class="quote">
+        Cameria is currently licensed under the much permissive<br/>
+        <strong>GNU General Public License (GPL), Version 3</strong>
+        and the<br/>
+        current repository is hosted at <a href="https://github.com/hivesolutions/cameria">github</a>.
+    </div>
 {% endblock %}

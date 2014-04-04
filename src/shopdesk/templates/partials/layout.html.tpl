@@ -8,6 +8,7 @@
 </head>
 <body class="ux panels">
     <div id="header" class="header">
+        {% include "partials/bar.html.tpl" %}
         {% include "partials/header.html.tpl" %}
         {% block header %}
             <ul class="side-links">
