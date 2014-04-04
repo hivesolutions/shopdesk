@@ -33,7 +33,7 @@
                 {% block buttons %}{% endblock %}
             </div>
         </div>
-        <div class="content-container">
+        <div class="content-container {% block style %}{% endblock %}">
             {% block content %}{% endblock %}
         </div>
     </div>
