@@ -1,6 +1,6 @@
 <div class="top-bar">
     <div class="logo">
-        <a href="#">Shopdesk</a>
+        <a>Shopdesk</a>
     </div>
     <input type="text" class="text-field" placeholder="Search over some of the items" />
     <div class="right">

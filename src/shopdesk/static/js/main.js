@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
                         jQuery(".side-panel").triggerHandler("toggle");
                     });
 
-            jQuery(".logo").click(function() {
+            jQuery(".logo > a").click(function() {
                         var sideLinks = jQuery(".side-links");
                         sideLinks.triggerHandler("toggle");
                     });

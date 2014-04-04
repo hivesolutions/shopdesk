@@ -1,9 +1,5 @@
 {% extends "partials/layout.html.tpl" %}
-{% block title %}About{% endblock %}
-{% block buttons %}
-    {{ super() }}
-    <div class="button button-color button-grey" data-link="/accounts/own/edit">Edit</div>
-{% endblock %}
+{% block title %}Edit Account{% endblock %}
 {% block extras %}
     <div class="side-panel border-box">
         <form class="form">
@@ -18,33 +14,137 @@
     </div>
 {% endblock %}
 {% block content %}
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra libero, quis euismod neque feugiat nec. Ut laoreet hendrerit sem at dapibus.
-        Donec rutrum nibh id pellentesque luctus. Sed enim est, molestie vel ipsum eu, gravida sagittis metus. Cras cursus eros erat, sed pharetra nisi rhoncus vel.
-        Aliquam pulvinar lorem in dui placerat, ac pretium eros eleifend. Aenean id imperdiet quam. Ut in justo quam. Sed rhoncus tortor ac sapien lobortis vestibulum.
-        Suspendisse scelerisque leo id ipsum laoreet, eget euismod diam gravida.
-    </p>
-    <p>
-        Nulla mattis eget odio eu volutpat. Morbi porttitor mauris auctor augue malesuada molestie. Nulla aliquam vitae risus sed dapibus. Maecenas et nisi tristique,
-        ultrices mauris sit amet, convallis dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed tempor dui at lectus
-        lobortis adipiscing. Cras egestas cursus tellus.
-    </p>
-    <p>
-        Aliquam at ante augue. Vivamus augue odio, auctor non urna a, mollis ornare velit. Donec a elit pharetra, imperdiet magna id, laoreet purus. Curabitur tincidunt
-        a eros et dictum. Cras fringilla non odio et auctor. Phasellus quis aliquet ligula, in luctus libero. Donec ipsum ipsum, pharetra vel turpis et, facilisis convallis
-        justo. Duis ac nisi malesuada, rutrum erat nec, faucibus magna. Proin lobortis orci quis sodales accumsan. Phasellus id tincidunt metus. Aliquam a semper neque.
-        Fusce urna sapien, rutrum et ultricies sit amet, molestie nec felis. Nunc sagittis nibh id odio euismod fringilla. Phasellus libero ligula, pellentesque at bibendum
-        non, accumsan sit amet enim. Aenean luctus lobortis mollis.
-    </p>
-    <p>
-        Mauris sodales nulla neque, fermentum tempor lectus tempus rhoncus. Sed sed ipsum felis. Vivamus fringilla quis enim ac ornare. Nam vitae purus ac nunc sodales
-        consectetur nec at arcu. Praesent fringilla sem sem, a sodales odio placerat ut. Quisque et risus non arcu euismod sodales id non neque. Vestibulum ante ipsum
-        primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed bibendum nibh vitae sagittis imperdiet. Morbi quis libero eu ante pellentesque bibendum.
-    </p>
-    <p>
-        Quisque bibendum luctus vehicula. Suspendisse imperdiet nibh ac sapien mollis laoreet. Aenean fringilla lacus a cursus elementum. Nullam eu vestibulum nibh.
-        Nulla facilisi. Sed metus metus, fringilla eget est quis, ullamcorper porttitor lacus. Pellentesque elementum, lorem in pulvinar rutrum, lacus leo vestibulum enim,
-        at semper magna elit id eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fermentum, tellus ac ultricies pellentesque, diam mauris dictum justo,
-        vel blandit massa felis nec orci. Vestibulum consectetur, nulla quis rhoncus placerat, urna metus pretium purus, ultricies faucibus dui massa in massa.
-    </p>
+    <form action="/accounts/own/update" enctype="multipart/form-data" method="post" class="form">
+        <div class="section">
+            <div class="item">
+                <div class="label">
+                    <label>Username</label>
+                </div>
+                <div class="input">
+                    <input type="text" class="text-field" name="username" placeholder="eg: joamag"
+                           value="root" data-disabled="1" data-error="" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="label">
+                    <label>First Name</label>
+                </div>
+                <div class="input">
+                    <input type="text" class="text-field" name="first_name" value="Super"
+                           data-error="" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="label">
+                    <label>Last Name</label>
+                </div>
+                <div class="input">
+                    <input type="text" class="text-field" name="last_name" value="Administrator"
+                           data-error="" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="label">
+                    <label>Password</label>
+                </div>
+                <div class="input">
+                    <input type="password" class="text-field" name="password"
+                           value="" data-error="" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="label">
+                    <label>Confirmation</label>
+                </div>
+                <div class="input">
+                    <input type="password" class="text-field" name="password_confirm"
+                               value="" data-error="" />
+                </div>
+               </div>
+           </div>
+        <div class="separator strong"></div>
+        <div class="section">
+            <div class="item clear">
+                <div class="label">
+                    <label>Birthday</label>
+                </div>
+                <div class="input">
+                    <input type="text" name="birthday" class="text-field" data-type="date"
+                           placeholder="yyyy/mm/dd" value="" data-error="" />
+                </div>
+            </div>
+            <div class="item">
+                <div class="label">
+                    <label>Gender</label>
+                </div>
+                <div class="input">
+                    <input type="radio" name="gender" id="male" value="male" checked="1" />
+                    <label class="radio-label" for="male">Male</label>
+                    <input type="radio" name="gender" id="female" value="female" />
+                    <label class="radio-label" for="female">Female</label>
+                </div>
+            </div>
+        </div>
+        <div class="separator strong"></div>
+        <div class="item">
+            <div class="label">
+                <label>Phone</label>
+            </div>
+            <div class="input">
+                <input type="text" class="text-field" name="phone" value="+351999999999"
+                       data-disabled="1" data-error="" />
+            </div>
+        </div>
+        <div class="item">
+            <div class="label">
+                <label>Email</label>
+            </div>
+            <div class="input">
+                <input type="email" class="text-field" name="email" value="root@root.com"
+                       data-disabled="1" data-error="" />
+            </div>
+        </div>
+        <div class="item">
+            <div class="label">
+                <label>Address</label>
+            </div>
+            <div class="input">
+                <input type="text" class="text-field street" name="street" placeholder="street name"
+                       value="" data-error="" />
+                <span class="multiline">
+                    <input type="text" class="text-field zip-code" name="zip_code" placeholder="zip code"
+                           value="" data-error="" />
+                    <input type="text" class="text-field province" name="province" placeholder="province"
+                           value="" data-error="" />
+                </span>
+                <div name="country" class="drop-field drop-field-select" value="Portugal"
+                     data-name="country" data-error=""
+                     data-number_options="-1">
+                    <div class="data-source" data-type="countries"></div>
+                </div>
+            </div>
+        </div>
+        <div class="separator strong"></div>
+        <div class="item full">
+            <div class="label">
+                <label>About</label>
+            </div>
+            <div class="input">
+                 <textarea name="about" class="text-area" placeholder="eg: some words about yourself"
+                           data-error=""></textarea>
+            </div>
+        </div>
+        <div class="item full">
+            <div class="label">
+                <label>Image (200x200)</label>
+            </div>
+            <div class="input">
+                 <a data-name="image" class="uploader" data-error="">Select & Upload the image file</a>
+            </div>
+        </div>
+        <div class="separator strong"></div>
+        <span class="button button-color button-grey" data-link="/accounts/own">Cancel</span>
+        <span class="or">or</span>
+        <span class="button button-color button-green" data-submit="true">Update</span>
+    </form>
 {% endblock %}
