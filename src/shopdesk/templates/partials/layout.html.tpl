@@ -7,6 +7,7 @@
     {% endblock %}
 </head>
 <body class="ux panels no-footer">
+    {% block extras %}{% endblock %}
     <div id="header" class="header">
         {% include "partials/bar.html.tpl" %}
         {% include "partials/header.html.tpl" %}
@@ -20,6 +21,7 @@
                 <li class="separator"></li>
                 <li>About</li>
                 <li class="swindow">Window</li>
+                <li class="side">Side</li>
                 <li class="hide">Hide</li>
             </ul>
         {% endblock %}

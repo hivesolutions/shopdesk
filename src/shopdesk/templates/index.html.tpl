@@ -4,6 +4,19 @@
     {{ super() }}
     <div class="button button-color button-grey" data-link="/accounts/own/edit">Edit</div>
 {% endblock %}
+{% block extras %}
+    <div class="side-panel side-tobias">
+        <form class="form">
+            <h1>Get news updates</h1>
+            <input type="text" class="text-field" placeholder="Email address"
+                   data-object="textfield" autocomplete="off" data-value="" />
+              <div class="buttons">
+                  <div class="button button-color button-green button-confirm" data-submit="1">Sign Up</div>
+                  <div class="button button-color button-red button-cancel">Cancel</div>
+              </div>
+        </form>
+    </div>
+{% endblock %}
 {% block content %}
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra libero, quis euismod neque feugiat nec. Ut laoreet hendrerit sem at dapibus.
