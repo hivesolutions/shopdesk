@@ -18,6 +18,10 @@ class BaseController(appier.Controller):
     def table(self):
         return self.template("table.html.tpl")
 
+    @appier.route("/show", "GET")
+    def show(self):
+        return self.template("show.html.tpl")
+
     @appier.route("/form", "GET")
     def form(self):
         return self.template("form.html.tpl")
