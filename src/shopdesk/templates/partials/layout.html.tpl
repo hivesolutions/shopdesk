@@ -3,7 +3,7 @@
     {% block head %}
         {% include "partials/content_type.html.tpl" %}
         {% include "partials/includes.html.tpl" %}
-        <title>Shopdesk{% block title %}{% endblock %}</title>
+        <title>Shopdesk {% block title %}{% endblock %}</title>
     {% endblock %}
 </head>
 <body class="ux panels">
@@ -24,7 +24,15 @@
             </ul>
         {% endblock %}
     </div>
-    <div id="content" class="content">{% block content %}{% endblock %}</div>
+    <div id="content" class="content">
+        <div class="content-header">
+            <h1>{{ self.title() }}</h1>
+            <div class="content-buttons">
+                {% block buttons %}{% endblock %}
+            </div>
+        </div>
+        {% block content %}{% endblock %}
+    </div>
     <div id="footer" class="footer">
         {% include "partials/footer.html.tpl" %}
         {% block footer %}{% endblock %}

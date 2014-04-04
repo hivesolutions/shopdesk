@@ -1,11 +1,10 @@
 {% extends "partials/layout.html.tpl" %}
+{% block title %}About{% endblock %}
+{% block buttons %}
+    {{ super() }}
+    <div class="button button-color button-grey" data-link="/accounts/own/edit">Edit</div>
+{% endblock %}
 {% block content %}
-    <div class="content-header">
-        <h1>About</h1>
-        <div class="content-buttons">
-            <div class="button button-color button-grey" data-link="/accounts/own/edit">Edit</div>
-        </div>
-    </div>
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tristique viverra libero, quis euismod neque feugiat nec. Ut laoreet hendrerit sem at dapibus.
         Donec rutrum nibh id pellentesque luctus. Sed enim est, molestie vel ipsum eu, gravida sagittis metus. Cras cursus eros erat, sed pharetra nisi rhoncus vel.
