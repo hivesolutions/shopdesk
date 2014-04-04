@@ -20,33 +20,38 @@
         <table>
             <thead>
                 <tr class="table-row table-header">
-                    <th class="text-left">Username</th>
+                    <th class="text-left" data-width="190">Sender</th>
+                    <th class="text-left">Subject</th>
                     <th class="text-right" data-width="190">Last Login</th>
                 </tr>
             </thead>
             <tbody class="filter-contents">
                 <tr class="table-row">
-                    <td class="text-left" data-width="541">
-                        <a href="#">Gondomar</a>
+                    <td class="text-left">
+                        <a href="#">João Magalhães</a>
                     </td>
+                    <td class="text-left">Próximos eventos música @ FNAC</td>
                     <td class="text-right timestamp" data-width="190">Porto</td>
                 </tr>
                 <tr class="table-row">
-                    <td class="text-left" data-width="541">
+                    <td class="text-left">
                         <a href="#">Gondomar</a>
                     </td>
+                    <td class="text-left">Coisas pendentes para o oibiquini</td>
                     <td class="text-right timestamp" data-width="190">Porto</td>
                 </tr>
                 <tr class="table-row">
-                    <td class="text-left" data-width="541">
+                    <td class="text-left">
                         <a href="#">Gondomar</a>
                     </td>
+                    <td class="text-left">Próximos eventos música @ FNAC</td>
                     <td class="text-right timestamp" data-width="190">Porto</td>
                 </tr>
                 <tr class="table-row">
-                    <td class="text-left" data-width="541">
-                        <a href="#">Gondomar</a>
+                    <td class="text-left">
+                        <a href="#">António Gouveia</a>
                     </td>
+                    <td class="text-left">[Omni API] implementar o wrap_exception flag</td>
                     <td class="text-right timestamp" data-width="190">Porto</td>
                 </tr>
             </tbody>
