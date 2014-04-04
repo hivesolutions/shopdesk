@@ -1,5 +1,5 @@
 {% extends "partials/layout.html.tpl" %}
-{% block title %}Countries{% endblock %}
+{% block title %}Table{% endblock %}
 {% block style %}no-header no-padding{% endblock %}
 {% block extras %}
     {{ super() }}
