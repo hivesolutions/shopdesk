@@ -13,3 +13,7 @@ class BaseController(appier.Controller):
     @appier.route("/index", "GET")
     def index(self):
         return self.template("index.html.tpl")
+
+    @appier.route("/countries", "GET")
+    def countries(self):
+        return self.template("table.html.tpl")
