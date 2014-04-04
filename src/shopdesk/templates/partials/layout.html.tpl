@@ -6,7 +6,7 @@
         <title>Shopdesk {% block title %}{% endblock %}</title>
     {% endblock %}
 </head>
-<body class="ux panels no-footer">
+<body class="ux panels grey no-footer">
     {% block extras %}{% endblock %}
     <div id="header" class="header">
         {% include "partials/bar.html.tpl" %}
