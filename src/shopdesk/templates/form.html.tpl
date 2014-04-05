@@ -14,7 +14,7 @@
     </div>
 {% endblock %}
 {% block content %}
-    <form action="/accounts/own/update" enctype="multipart/form-data" method="post" class="form">
+    <form action="/accounts/own/update" enctype="multipart/form-data" method="post" class="form inline">
         <div class="section">
             <div class="item">
                 <div class="label">
