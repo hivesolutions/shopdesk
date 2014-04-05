@@ -12,18 +12,18 @@
         {% include "partials/bar.html.tpl" %}
         {% include "partials/header.html.tpl" %}
         {% block header %}
-            <ul class="side-links">
-                <li class="selected">Home</li>
-                <li>Orders</li>
-                <li>Products</li>
-                <li>Sales</li>
-                <li>Reports</li>
-                <li class="separator"></li>
-                <li>About</li>
-                <li class="swindow">Window</li>
-                <li class="side">Side</li>
-                <li class="hide">Hide</li>
-            </ul>
+            <div class="side-links">
+                <a class="selected">Home</a>
+                <a>Orders</a>
+                <a>Products</a>
+                <a>Sales</a>
+                <a>Reports</a>
+                <a class="separator"></a>
+                <a>About</a>
+                <a class="swindow">Window</a>
+                <a class="side">Side</a>
+                <a class="hide">Hide</a>
+            </div>
         {% endblock %}
     </div>
     <div id="content" class="content {% block style %}{% endblock %}">
