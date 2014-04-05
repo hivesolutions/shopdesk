@@ -8,8 +8,10 @@
 </head>
 <body class="ux fluid fixed grey no-footer">
     {% block extras %}{% endblock %}
-    <div id="header" class="header">
+    <div id="bar" class="bar">
         {% include "partials/bar.html.tpl" %}
+    </div>
+    <div id="header" class="header">
         {% include "partials/header.html.tpl" %}
         {% block header %}
             <div class="side-links">
