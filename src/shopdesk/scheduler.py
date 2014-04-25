@@ -81,11 +81,11 @@ class Scheduler(threading.Thread):
 
     def issue_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.PENDING)
-        self.owner.logger.debug("Issuing references for '%d' orders ...")
+        self.owner.logger.debug("Issuing references for '%d' orders ..." % len(orders))
         for order in orders:
             amount = float(order.s_total_price)
             reference = self.easypay.generate_mb(amount)
-            order.reference = reference
+            order.reference = reference["identifier"]
             order.payment = shopdesk.Order.ISSUED
             order.save()
 
