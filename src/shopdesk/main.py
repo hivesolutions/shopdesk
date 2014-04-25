@@ -4,6 +4,8 @@
 import appier
 import appier_extras
 
+from shopdesk import scheduler
+
 class ShopdeskApp(appier.WebApp):
 
     def __init__(self):
@@ -14,6 +16,11 @@ class ShopdeskApp(appier.WebApp):
                 appier_extras.AdminPart,
             )
         )
+        self.scheduler = scheduler.Scheduler()
+
+    def start(self):
+        appier.WebApp.start(self)
+        self.scheduler.start()
 
 if __name__ == "__main__":
     app = ShopdeskApp()
