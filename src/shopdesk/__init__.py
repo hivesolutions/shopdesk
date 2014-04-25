@@ -1,8 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import controllers
-import main
+from . import controllers
+from . import main
+from . import scheduler
 
-from controllers import *
-from main import *
+from .controllers import *
+from .main import *
+from .scheduler import *
