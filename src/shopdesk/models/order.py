@@ -14,6 +14,7 @@ class Order(appier_extras.admin.Base):
 
     PAYMENT_S = {
         PENDING : "pending",
+        ISSUED : "issued",
         PAID : "paid",
         REFUNDED : "refunded",
         OTHER : "other"
