@@ -16,7 +16,7 @@ class ShopdeskApp(appier.WebApp):
                 appier_extras.AdminPart,
             )
         )
-        self.scheduler = scheduler.Scheduler()
+        self.scheduler = scheduler.Scheduler(self)
 
     def start(self):
         appier.WebApp.start(self)
