@@ -78,6 +78,7 @@ class Order(appier_extras.admin.Base):
 
     def pre_validate(self):
         appier_extras.admin.Base.pre_validate(self)
+
         self.start_payment()
 
     def start_payment(self):
