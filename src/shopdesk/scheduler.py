@@ -12,6 +12,8 @@ import shopdesk
 
 LOOP_TIMEOUT = 60.0
 
+ORDER_TIMEOUT = 2.0 * 24.0 * 3600.0
+
 class Scheduler(threading.Thread):
     """
     Scheduler class that handles all the async tasks
@@ -44,6 +46,7 @@ class Scheduler(threading.Thread):
 
     def tick(self):
         self.check_orders()
+        self.cancel_orders()
         self.issue_references()
 
     def load(self):
@@ -86,6 +89,18 @@ class Scheduler(threading.Thread):
                 s_status = order["financial_status"]
             )
             _order.save()
+
+    def cancel_orders(self):
+        expiration = time.time() - ORDER_TIMEOUT
+        orders = shopdesk.Order.find(
+            payment = shopdesk.Order.ISSUED,
+            created = { "$lt" : expiration }
+        )
+        self.owner.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
+        for order in orders:
+            self.easypay.cancel_mb(order.reference)
+            order.payment = shopdesk.Order.CANCELED
+            order.save()
 
     def issue_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.PENDING)

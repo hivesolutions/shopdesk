@@ -9,13 +9,15 @@ class Order(appier_extras.admin.Base):
     PENDING = 1
     ISSUED = 2
     PAID = 3
-    REFUNDED = 4
-    OTHER = 5
+    CANCELED = 4
+    REFUNDED = 5
+    OTHER = 6
 
     PAYMENT_S = {
         PENDING : "pending",
         ISSUED : "issued",
         PAID : "paid",
+        CANCELED : "canceled",
         REFUNDED : "refunded",
         OTHER : "other"
     }
