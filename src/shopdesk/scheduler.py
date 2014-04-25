@@ -59,6 +59,7 @@ class Scheduler(threading.Thread):
             entity = appier.conf("EASYPAY_ENTITY")
         )
         self.easypay.bind("paid", self.on_paid)
+        self.easypay.start_scheduler()
 
     def check_orders(self):
         self.owner.logger.debug("Checking shopify orders ...")
@@ -92,5 +93,6 @@ class Scheduler(threading.Thread):
     def on_paid(self, reference, details):
         identifier = reference["identifier"]
         order = shopdesk.Order.get(reference = identifier, raise_e = False)
-        self.owner.logger.debug("Received payment for order '%s'" % order.name)
-        #@todo should trigger an event fo email notification
+        order.payment = shopdesk.Order.PAID
+        order.save()
+        self.owner.logger.debug("Received payment for order '%s'" % order.s_name)

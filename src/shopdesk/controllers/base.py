@@ -9,19 +9,12 @@ class BaseController(appier.Controller):
     def __init__(self, owner, *args, **kwargs):
         appier.Controller.__init__(self, owner, *args, **kwargs)
 
-    @appier.route("/", "GET")
-    @appier.route("/index", "GET")
-    def index(self):
-        return self.template("index.html.tpl")
-
-    @appier.route("/table", "GET")
-    def table(self):
-        return self.template("table.html.tpl")
-
-    @appier.route("/show", "GET")
-    def show(self):
-        return self.template("show.html.tpl")
-
-    @appier.route("/form", "GET")
-    def form(self):
-        return self.template("form.html.tpl")
+    @appier.route("/notification", "GET")
+    def notification(self):
+        cin = self.field("ep_cin")
+        username = self.field("ep_user")
+        doc = self.field("ep_doc")
+        api = self.scheduler.easypay
+        result = api.notify_mb(cin, username, doc)
+        self.content_type("application/xml")
+        return result
