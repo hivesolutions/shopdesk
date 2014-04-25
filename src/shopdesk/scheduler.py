@@ -3,6 +3,7 @@
 
 import time
 import threading
+import traceback
 
 import appier
 import shopify
@@ -29,7 +30,13 @@ class Scheduler(threading.Thread):
         self.running  = True
         self.load()
         while self.running:
-            self.tick()
+            try:
+                self.tick()
+            except BaseException as exception:
+                self.owner.logger.critical("Unhandled shopdesk exception raised")
+                self.owner.logger.error(exception)
+                lines = traceback.format_exc().splitlines()
+                for line in lines: self.owner.logger.warning(line)
             time.sleep(LOOP_TIMEOUT)
 
     def stop(self):
