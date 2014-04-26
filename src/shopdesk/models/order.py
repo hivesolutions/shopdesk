@@ -88,6 +88,10 @@ class Order(appier_extras.admin.Base):
         index = True
     )
 
+    reference_id = appier.field(
+        index = True
+    )
+
     @classmethod
     def validate(cls):
         return super(Order, cls).validate() + [
@@ -135,7 +139,8 @@ class Order(appier_extras.admin.Base):
         amount = float(self.s_total_price)
         reference = easypay.generate_mb(amount)
         self.entity = reference["entity"]
-        self.reference = reference["identifier"]
+        self.reference = reference["reference"]
+        self.reference_id = reference["identifier"]
         self.payment = Order.ISSUED
         self.save()
         self.owner.logger.debug("Issued reference for order '%s'" % self.s_name)

@@ -114,5 +114,5 @@ class Scheduler(threading.Thread):
 
     def on_paid(self, reference, details):
         identifier = reference["identifier"]
-        order = shopdesk.Order.get(reference = identifier, raise_e = False)
+        order = shopdesk.Order.get(reference_id = identifier, raise_e = False)
         order.pay_s(self.shopify)
