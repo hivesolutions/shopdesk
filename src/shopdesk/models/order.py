@@ -24,6 +24,8 @@ class Order(appier_extras.admin.Base):
 
     VALID_PAYMENTS = ("Multibanco",)
 
+    MIN_VALUE = 0.5
+
     s_id = appier.field(
         type = int,
         index = True,
@@ -128,12 +130,13 @@ class Order(appier_extras.admin.Base):
 
     def start_payment(self):
         if hasattr(self, "payment"): return
+        self.payment = Order.PAID
         if not hasattr(self, "s_status") : return
         if not hasattr(self, "s_gateway") : return
-        if not self.s_gateway in Order.VALID_PAYMENTS: self.payment = Order.PAID; return
+        if not self.s_gateway in Order.VALID_PAYMENTS: return
+        if float(self.s_total_price) < Order.MIN_VALUE: return
         if self.s_status == "pending": self.payment = Order.PENDING; return
         if self.s_status == "refunded": self.payment = Order.REFUNDED; return
-        self.payment = Order.PAID
 
     def issue_reference_s(self, easypay):
         amount = float(self.s_total_price)
