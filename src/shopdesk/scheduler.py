@@ -10,9 +10,16 @@ import shopify
 import easypay
 import shopdesk
 
-LOOP_TIMEOUT = 60.0
+LOOP_TIMEOUT = 15.0
+""" The time value to be used to sleep the main sequence
+loop between ticks, this value should not be too small
+to spend many resources or to high to create a long set
+of time between external interactions """
 
 ORDER_TIMEOUT = 2.0 * 24.0 * 3600.0
+""" The default order timeout value that is going to
+be used to measure the amount of time before an order
+is considered expired and it's canceled """
 
 class Scheduler(threading.Thread):
     """
