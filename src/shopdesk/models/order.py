@@ -41,6 +41,11 @@ class Order(appier_extras.admin.Base):
         immutable = True
     )
 
+    s_currency = appier.field(
+        index = True,
+        immutable = True
+    )
+
     s_gateway = appier.field(
         index = True,
         immutable = True
@@ -104,6 +109,7 @@ class Order(appier_extras.admin.Base):
             s_id = order["id"],
             s_name = order["name"],
             s_total_price = order["total_price"],
+            s_currency = order["currency"],
             s_gateway = order["gateway"],
             s_status = order["financial_status"],
             s_email = order["email"],
