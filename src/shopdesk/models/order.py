@@ -51,12 +51,12 @@ class Order(appier_extras.admin.Base):
         immutable = True
     )
 
-    s_customer_name = appier.field(
+    s_email = appier.field(
         index = True,
         immutable = True
     )
 
-    s_customer_email = appier.field(
+    s_billing_name = appier.field(
         index = True,
         immutable = True
     )
@@ -100,8 +100,8 @@ class Order(appier_extras.admin.Base):
             s_total_price = order["total_price"],
             s_gateway = order["gateway"],
             s_status = order["financial_status"],
-            s_customer_name = order["customer"]["name"],
-            s_customer_email = order["customer"]["email"]
+            s_email = order["email"],
+            s_billing_name = order["billing_address"]["name"],
         )
 
     def pre_validate(self):
