@@ -59,6 +59,10 @@ class Order(appier_extras.admin.Base):
         enum = PAYMENT_S
     )
 
+    entity = appier.field(
+        index = True
+    )
+
     reference = appier.field(
         index = True
     )
@@ -95,10 +99,12 @@ class Order(appier_extras.admin.Base):
     def issue_reference_s(self, easypay):
         amount = float(self.s_total_price)
         reference = easypay.generate_mb(amount)
+        self.entity = reference["entity"]
         self.reference = reference["identifier"]
         self.payment = Order.ISSUED
         self.save()
-        self.owner.logger.debug("Issue reference for order '%s'" % self.s_name)
+        self.email_reference()
+        self.owner.logger.debug("Issued reference for order '%s'" % self.s_name)
 
     def pay_s(self, shopify):
         shopify.pay_order(self.s_id)
@@ -112,3 +118,11 @@ class Order(appier_extras.admin.Base):
         self.payment = Order.CANCELED
         self.save()
         self.owner.logger.debug("Canceled and reversed order '%s'" % self.s_name)
+
+    def email_reference(self):
+        self.send_email(
+            "email/reference.html.tpl",
+            receivers = [account.email_mime()],
+            subject = self.to_locale("Referência gerada"),
+            order = self
+        )
