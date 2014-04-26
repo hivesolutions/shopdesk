@@ -51,6 +51,16 @@ class Order(appier_extras.admin.Base):
         immutable = True
     )
 
+    s_customer_name = appier.field(
+        index = True,
+        immutable = True
+    )
+
+    s_customer_email = appier.field(
+        index = True,
+        immutable = True
+    )
+
     payment = appier.field(
         type = int,
         safe = True,
@@ -81,6 +91,18 @@ class Order(appier_extras.admin.Base):
 
             appier.not_null("payment")
         ]
+
+    @classmethod
+    def from_shopify(cls, order):
+        return cls(
+            s_id = order["id"],
+            s_name = order["name"],
+            s_total_price = order["total_price"],
+            s_gateway = order["gateway"],
+            s_status = order["financial_status"],
+            s_customer_name = order["customer"]["name"],
+            s_customer_email = order["customer"]["email"]
+        )
 
     def pre_validate(self):
         appier_extras.admin.Base.pre_validate(self)
@@ -122,7 +144,10 @@ class Order(appier_extras.admin.Base):
     def email_reference(self):
         self.send_email(
             "email/reference.html.tpl",
-            receivers = [account.email_mime()],
-            subject = self.to_locale("Referência gerada"),
+            receivers = [self.email_mime()],
+            subject = self.to_locale("Referência Multibanco gerada"),
             order = self
         )
+
+    def email_mime(self):
+        return "%s <%s>" % (self.s_customer_name, self.s_customer_email)

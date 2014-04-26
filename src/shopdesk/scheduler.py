@@ -89,13 +89,7 @@ class Scheduler(threading.Thread):
             new_orders.append(order)
         self.owner.logger.debug("Found '%d' new shopify orders", len(new_orders))
         for order in new_orders:
-            _order = shopdesk.Order(
-                s_id = order["id"],
-                s_name = order["name"],
-                s_total_price = order["total_price"],
-                s_gateway = order["gateway"],
-                s_status = order["financial_status"]
-            )
+            _order = shopdesk.Order.from_shopify(order)
             _order.save()
 
     def cancel_orders(self):
