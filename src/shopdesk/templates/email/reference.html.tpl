@@ -16,11 +16,11 @@
     {{ h2("Dados Multibanco") }}
     <p>
         <strong>Entidade:</strong>
-        <span>{{ entity }}</span>
+        <span>{{ order.entity }}</span>
     </p>
     <p>
         <strong>Referência:</strong>
-        <span>{{ reference }}</span>
+        <span>{{ order.reference }}</span>
     </p>
     <p>
         Algum problema? A nossa equipa de apoio está disponível para o ajudar.
