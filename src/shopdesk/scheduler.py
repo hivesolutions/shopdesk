@@ -104,26 +104,14 @@ class Scheduler(threading.Thread):
             created = { "$lt" : expiration }
         )
         self.owner.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
-        for order in orders:
-            self.easypay.cancel_mb(order.reference)
-            self.shopify.cancel_order(order.s_id)
-            order.payment = shopdesk.Order.CANCELED
-            order.save()
+        for order in orders: order.cancel_s(self.easypay, self.shopify)
 
     def issue_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.PENDING)
         self.owner.logger.debug("Issuing references for '%d' orders ..." % len(orders))
-        for order in orders:
-            amount = float(order.s_total_price)
-            reference = self.easypay.generate_mb(amount)
-            order.reference = reference["identifier"]
-            order.payment = shopdesk.Order.ISSUED
-            order.save()
+        for order in orders: order.issue_reference_s(self.easypay)
 
     def on_paid(self, reference, details):
         identifier = reference["identifier"]
         order = shopdesk.Order.get(reference = identifier, raise_e = False)
-        self.shopify.pay_order(order.s_id)
-        order.payment = shopdesk.Order.PAID
-        order.save()
-        self.owner.logger.debug("Received payment for order '%s'" % order.s_name)
+        order.pay_s(self.shopify)
