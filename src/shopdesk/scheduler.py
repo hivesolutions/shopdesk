@@ -70,7 +70,7 @@ class Scheduler(threading.Thread):
 
     def load_easypay(self):
         self.easypay = easypay.ShelveApi(
-            production = appier.conf("EASYPAY_PRODUCTION", type = bool),
+            production = appier.conf("EASYPAY_PRODUCTION", cast = bool),
             username = appier.conf("EASYPAY_USERNAME"),
             password = appier.conf("EASYPAY_PASSWORD"),
             cin = appier.conf("EASYPAY_CIN"),
