@@ -23,6 +23,10 @@
         <span>{{ order.reference }}</span>
     </p>
     <p>
+        <strong>Valor:</strong>
+        <span>{{ order.s_total_price }}</span>
+    </p>
+    <p>
         Algum problema? A nossa equipa de apoio está disponível para o ajudar.
         Envie-nos um email para {{ link("mailto:ajuda@webook.pt", "ajuda@webook.pt", False) }}.
     </p>
