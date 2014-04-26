@@ -26,6 +26,7 @@
         <strong>Valor:</strong>
         <span>{{ order.s_total_price }} {{ order.s_currency }}</span>
     </p>
+    {{ h2("Estamos Sempre Consigo") }}
     <p>
         Algum problema? A nossa equipa de apoio está disponível para o ajudar.
         Envie-nos um email para {{ link("mailto:ajuda@webook.pt", "ajuda@webook.pt", False) }}.
