@@ -158,4 +158,4 @@ class Order(appier_extras.admin.Base):
         self.save()
 
     def email_mime(self):
-        return "%s <%s>" % (self.s_customer_name, self.s_customer_email)
+        return "%s <%s>" % (self.s_billing_name, self.s_email)
