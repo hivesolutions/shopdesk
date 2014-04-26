@@ -165,7 +165,7 @@ class Order(appier_extras.admin.Base):
         self.send_email(
             "email/reference.html.tpl",
             receivers = [self.email_mime()],
-            subject = self.to_locale("Referência Multibanco gerada"),
+            subject = self.to_locale("Dados para pagamento %s" % self.s_name),
             order = self
         )
         self.email_sent = True

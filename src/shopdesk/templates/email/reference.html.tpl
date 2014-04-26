@@ -1,8 +1,8 @@
 {% extends "email/layout.html.tpl" %}
-{% block title %}Referência Multibanco{% endblock %}
+{% block title %}Dados para pagamento {{ order.s_name }}{% endblock %}
 {% block content %}
     <p>
-        A sua referência Multibanco para a encomenda {{ order.s_name }} acabou de ser criada!
+        A referência Multibanco para a encomenda {{ order.s_name }} acabou de ser criada!
         Dispõe de 24 horas para efectuar o pagamento. Caso este prazo seja ultrapassado a sua
         encomenda será cancelada.
     </p>
@@ -11,7 +11,7 @@
         de Serviços" e introduzir a entidade, referência e valor. O pagamento pode também ser
         efectuado on-line em qualquer tipo de serviço "home banking" prestado pelo seu banco.
     </p>
-    {{ h2("Dados Multibanco") }}
+    {{ h2("Multibanco") }}
     <p>
         <strong>Entidade:</strong>
         <span>{{ order.entity }}</span>
