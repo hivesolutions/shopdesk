@@ -24,7 +24,7 @@
     </p>
     <p>
         <strong>Valor:</strong>
-        <span>{{ order.s_total_price }}</span>
+        <span>{{ order.s_total_price }} {{ order.s_currency }}</span>
     </p>
     <p>
         Algum problema? A nossa equipa de apoio está disponível para o ajudar.
