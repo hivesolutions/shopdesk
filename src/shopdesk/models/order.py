@@ -69,6 +69,12 @@ class Order(appier_extras.admin.Base):
         enum = PAYMENT_S
     )
 
+    email_sent = appier.field(
+        type = bool,
+        safe = True,
+        index = True
+    )
+
     entity = appier.field(
         index = True
     )
@@ -102,6 +108,7 @@ class Order(appier_extras.admin.Base):
             s_status = order["financial_status"],
             s_email = order["email"],
             s_billing_name = order["billing_address"]["name"],
+            email_sent = False
         )
 
     def pre_validate(self):
@@ -125,7 +132,6 @@ class Order(appier_extras.admin.Base):
         self.reference = reference["identifier"]
         self.payment = Order.ISSUED
         self.save()
-        self.email_reference()
         self.owner.logger.debug("Issued reference for order '%s'" % self.s_name)
 
     def pay_s(self, shopify):
@@ -141,13 +147,15 @@ class Order(appier_extras.admin.Base):
         self.save()
         self.owner.logger.debug("Canceled and reversed order '%s'" % self.s_name)
 
-    def email_reference(self):
+    def email_reference_s(self):
         self.send_email(
             "email/reference.html.tpl",
             receivers = [self.email_mime()],
             subject = self.to_locale("Referência Multibanco gerada"),
             order = self
         )
+        self.email_sent = Order.SENT
+        self.save()
 
     def email_mime(self):
         return "%s <%s>" % (self.s_customer_name, self.s_customer_email)

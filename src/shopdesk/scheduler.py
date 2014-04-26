@@ -55,6 +55,7 @@ class Scheduler(threading.Thread):
         self.check_orders()
         self.cancel_orders()
         self.issue_references()
+        self.email_references()
 
     def load(self):
         self.load_shopify()
@@ -105,6 +106,11 @@ class Scheduler(threading.Thread):
         orders = shopdesk.Order.find(payment = shopdesk.Order.PENDING)
         self.owner.logger.debug("Issuing references for '%d' orders ..." % len(orders))
         for order in orders: order.issue_reference_s(self.easypay)
+
+    def email_references(self):
+        orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, email_sent = False)
+        self.owner.logger.debug("Sending emails for '%d' orders ..." % len(orders))
+        for order in orders: order.email_reference_s()
 
     def on_paid(self, reference, details):
         identifier = reference["identifier"]
