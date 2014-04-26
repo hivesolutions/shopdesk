@@ -99,6 +99,7 @@ class Scheduler(threading.Thread):
         self.owner.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
         for order in orders:
             self.easypay.cancel_mb(order.reference)
+            self.shopify.cancel_order(order.s_id)
             order.payment = shopdesk.Order.CANCELED
             order.save()
 
@@ -115,6 +116,7 @@ class Scheduler(threading.Thread):
     def on_paid(self, reference, details):
         identifier = reference["identifier"]
         order = shopdesk.Order.get(reference = identifier, raise_e = False)
+        self.shopify.pay_order(order.s_id)
         order.payment = shopdesk.Order.PAID
         order.save()
         self.owner.logger.debug("Received payment for order '%s'" % order.s_name)
