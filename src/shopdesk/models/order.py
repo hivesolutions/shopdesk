@@ -154,7 +154,7 @@ class Order(appier_extras.admin.Base):
             subject = self.to_locale("Referência Multibanco gerada"),
             order = self
         )
-        self.email_sent = Order.SENT
+        self.email_sent = True
         self.save()
 
     def email_mime(self):
