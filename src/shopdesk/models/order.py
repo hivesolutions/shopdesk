@@ -155,12 +155,8 @@ class Order(appier_extras.admin.Base):
         self.owner.logger.debug("Received payment for order '%s'" % self.s_name)
 
     def cancel_s(self, easypay, shopify):
-        try: easypay.cancel_mb(self.reference)
-        except BaseException as exception:
-            self.owner.logger.warning("Error canceling reference: %s" % appier.UNICODE(exception))
-        try: shopify.cancel_order(self.s_id)
-        except BaseException as exception:
-            self.owner.logger.warning("Error canceling order: %s" % appier.UNICODE(exception))
+        easypay.cancel_mb(self.reference_id)
+        shopify.cancel_order(self.s_id)
         self.payment = Order.CANCELED
         self.save()
         self.owner.logger.debug("Canceled and reversed order '%s'" % self.s_name)
