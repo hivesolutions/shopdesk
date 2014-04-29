@@ -27,6 +27,6 @@
     {{ h2("Estamos Sempre Consigo") }}
     <p>
         Algum problema? A nossa equipa de apoio está disponível para o ajudar.
-        Envie-nos um email para {{ link("mailto:ajuda@webook.pt", "ajuda@webook.pt", False) }}.
+        Envie-nos um email para {{ link("mailto:ajuda@oibiquini.com", "ajuda@oibikini.com", False) }}.
     </p>
 {% endblock %}
