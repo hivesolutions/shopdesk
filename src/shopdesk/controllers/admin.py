@@ -5,7 +5,6 @@ import appier
 
 class AdminController(appier.Controller):
 
-    @appier.controller("AdminController")
     def __init__(self, owner, *args, **kwargs):
         appier.Controller.__init__(self, owner, *args, **kwargs)
 
