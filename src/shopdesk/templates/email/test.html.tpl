@@ -2,6 +2,6 @@
 {% block title %}Test{% endblock %}
 {% block content %}
     <p>
-        This is a simple test mail for the Shopdesk infra-structure
+        This is a simple test mail for the Shopdesk infra-structure.
     </p>
 {% endblock %}
