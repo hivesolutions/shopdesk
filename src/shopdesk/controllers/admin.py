@@ -19,7 +19,7 @@ class AdminController(appier.Controller):
     def email_test(self):
         email = self.field("email", None)
         if not email: raise appier.OperationalError(
-            messsage = "No email defined"
+            message = "No email defined"
         )
         base = appier_extras.admin.Base()
         base.send_email(
