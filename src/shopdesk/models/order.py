@@ -76,6 +76,12 @@ class Order(appier_extras.admin.Base):
         enum = PAYMENT_S
     )
 
+    note_sent = appier.field(
+        type = bool,
+        safe = True,
+        index = True
+    )
+
     email_sent = appier.field(
         type = bool,
         safe = True,
@@ -120,6 +126,7 @@ class Order(appier_extras.admin.Base):
             s_status = order["financial_status"],
             s_email = order["email"],
             s_billing_name = order["billing_address"]["name"],
+            note_sent = False,
             email_sent = False
         )
 
@@ -160,6 +167,16 @@ class Order(appier_extras.admin.Base):
         self.payment = Order.CANCELED
         self.save()
         self.owner.logger.debug("Canceled and reversed order '%s'" % self.s_name)
+
+    def note_reference_s(self, shopify):
+        order = shopify.get_order(self.s_id)
+        note = order.get("note", None) or ""
+        note += "Entity: %s\nReference: %s\nValue: %s\n" % (
+            self.entity, self.reference, self.s_total_price
+        )
+        shopify.update_order(self.s_id, note = note)
+        self.note_sent = True
+        self.save()
 
     def email_reference_s(self):
         self.send_email(

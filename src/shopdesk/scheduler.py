@@ -107,6 +107,11 @@ class Scheduler(threading.Thread):
         self.owner.logger.debug("Issuing references for '%d' orders ..." % len(orders))
         for order in orders: order.issue_reference_s(self.easypay)
 
+    def note_references(self):
+        orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, note_sent = False)
+        self.owner.logger.debug("Noting down '%d' ..." % len(orders))
+        for order in orders: order.note_reference_s(self.shopify)
+
     def email_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, email_sent = False)
         self.owner.logger.debug("Sending emails for '%d' orders ..." % len(orders))
