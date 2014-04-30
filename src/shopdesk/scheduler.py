@@ -55,6 +55,7 @@ class Scheduler(threading.Thread):
         self.check_orders()
         self.cancel_orders()
         self.issue_references()
+        self.note_references()
         self.email_references()
 
     def load(self):
