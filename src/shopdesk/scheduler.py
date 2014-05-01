@@ -110,7 +110,7 @@ class Scheduler(threading.Thread):
 
     def note_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, note_sent = False)
-        self.owner.logger.debug("Noting down '%d' ..." % len(orders))
+        self.owner.logger.debug("Noting down '%d' orders ..." % len(orders))
         for order in orders: order.note_reference_s(self.shopify)
 
     def email_references(self):
