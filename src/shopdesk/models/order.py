@@ -117,7 +117,7 @@ class Order(appier_extras.admin.Base):
 
     @classmethod
     def list_names(cls):
-        return ["s_name", "s_total_price", "s_gateway", "s_billing_name", "s_status"]
+        return ["s_name", "s_total_price", "s_gateway", "s_billing_name", "payment"]
 
     @classmethod
     def from_shopify(cls, order):
