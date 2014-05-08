@@ -60,7 +60,8 @@ class Order(appier_extras.admin.Base):
 
     s_email = appier.field(
         index = True,
-        immutable = True
+        immutable = True,
+        meta = "email"
     )
 
     s_billing_name = appier.field(
