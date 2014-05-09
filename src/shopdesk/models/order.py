@@ -168,7 +168,7 @@ class Order(appier_extras.admin.Base):
 
     def cancel_s(self, easypay, shopify):
         easypay.cancel_mb(self.reference_id)
-        shopify.cancel_order(self.s_id)
+        shopify.cancel_order(self.s_id, email = True)
         self.payment = Order.CANCELED
         self.save()
         self.owner.logger.debug("Canceled and reversed order '%s'" % self.s_name)
