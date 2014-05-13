@@ -5,9 +5,6 @@ import appier
 
 class BaseController(appier.Controller):
 
-    def __init__(self, owner, *args, **kwargs):
-        appier.Controller.__init__(self, owner, *args, **kwargs)
-
     @appier.route("/notification", "GET")
     def notification(self):
         cin = self.field("ep_cin")
