@@ -158,20 +158,20 @@ class Order(appier_extras.admin.Base):
         self.reference_id = reference["identifier"]
         self.payment = Order.ISSUED
         self.save()
-        self.owner.logger.debug("Issued reference for order '%s'" % self.s_name)
+        self.logger.debug("Issued reference for order '%s'" % self.s_name)
 
     def pay_s(self, shopify):
         shopify.pay_order(self.s_id)
         self.payment = Order.PAID
         self.save()
-        self.owner.logger.debug("Received payment for order '%s'" % self.s_name)
+        self.logger.debug("Received payment for order '%s'" % self.s_name)
 
     def cancel_s(self, easypay, shopify):
         easypay.cancel_mb(self.reference_id)
         shopify.cancel_order(self.s_id, email = True)
         self.payment = Order.CANCELED
         self.save()
-        self.owner.logger.debug("Canceled and reversed order '%s'" % self.s_name)
+        self.logger.debug("Canceled and reversed order '%s'" % self.s_name)
 
     def note_reference_s(self, shopify):
         order = shopify.get_order(self.s_id)

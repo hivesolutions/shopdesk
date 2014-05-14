@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import time
-import threading
-import traceback
 
 import appier
 import shopify
@@ -21,37 +19,18 @@ ORDER_TIMEOUT = 2.0 * 24.0 * 3600.0
 be used to measure the amount of time before an order
 is considered expired and it's canceled """
 
-class Scheduler(threading.Thread):
-    """
-    Scheduler class that handles all the async tasks
-    relates with the house keeping of the shopdesk
-    infra-structure. The architecture of the logic
-    for the class should be modular in the sense that
-    new task may be added to it through a queue system.
-    """
+class Scheduler(appier.Scheduler):
 
-    def __init__(self, owner):
-        threading.Thread.__init__(self)
-        self.owner = owner
-        self.daemon = True
-
-    def run(self):
-        self.running  = True
-        self.load()
-        while self.running:
-            try:
-                self.tick()
-            except BaseException as exception:
-                self.owner.logger.critical("Unhandled shopdesk exception raised")
-                self.owner.logger.error(exception)
-                lines = traceback.format_exc().splitlines()
-                for line in lines: self.owner.logger.warning(line)
-            time.sleep(LOOP_TIMEOUT)
-
-    def stop(self):
-        self.running = False
-
+    def __init__(self, *args, **kwargs):
+        appier.Scheduler.__init__(
+            self,
+            timeout = LOOP_TIMEOUT,
+            *args,
+            **kwargs
+        )
+        
     def tick(self):
+        appier.Scheduler.tick(self)
         self.check_orders()
         self.cancel_orders()
         self.issue_references()
@@ -82,14 +61,14 @@ class Scheduler(threading.Thread):
         self.easypay.start_scheduler()
 
     def check_orders(self):
-        self.owner.logger.debug("Checking shopify orders ...")
+        self.logger.debug("Checking shopify orders ...")
         orders = self.shopify.list_orders(limit = 30)
         new_orders = []
         for order in orders:
             _order = shopdesk.Order.get(s_id = order["id"], raise_e = False)
             if _order: continue
             new_orders.append(order)
-        self.owner.logger.debug("Found '%d' new shopify orders", len(new_orders))
+        self.logger.debug("Found '%d' new shopify orders", len(new_orders))
         for order in new_orders:
             _order = shopdesk.Order.from_shopify(order)
             _order.save()
@@ -100,22 +79,22 @@ class Scheduler(threading.Thread):
             payment = shopdesk.Order.ISSUED,
             created = { "$lt" : expiration }
         )
-        self.owner.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
+        self.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
         for order in orders: order.cancel_s(self.easypay, self.shopify)
 
     def issue_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.PENDING)
-        self.owner.logger.debug("Issuing references for '%d' orders ..." % len(orders))
+        self.logger.debug("Issuing references for '%d' orders ..." % len(orders))
         for order in orders: order.issue_reference_s(self.easypay)
 
     def note_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, note_sent = False)
-        self.owner.logger.debug("Noting down '%d' orders ..." % len(orders))
+        self.logger.debug("Noting down '%d' orders ..." % len(orders))
         for order in orders: order.note_reference_s(self.shopify)
 
     def email_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, email_sent = False)
-        self.owner.logger.debug("Sending emails for '%d' orders ..." % len(orders))
+        self.logger.debug("Sending emails for '%d' orders ..." % len(orders))
         for order in orders: order.email_reference_s()
 
     def on_paid(self, reference, details):
