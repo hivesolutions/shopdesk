@@ -28,7 +28,7 @@ class Scheduler(appier.Scheduler):
             *args,
             **kwargs
         )
-        
+
     def tick(self):
         appier.Scheduler.tick(self)
         self.check_orders()

@@ -22,7 +22,10 @@ class Order(appier_extras.admin.Base):
         OTHER : "other"
     }
 
-    VALID_PAYMENTS = ("Multibanco", "Ref. Multibanco")
+    VALID_PAYMENTS = (
+        "Multibanco",
+        "Ref. Multibanco"
+    )
 
     MIN_VALUE = 0.5
 
