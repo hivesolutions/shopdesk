@@ -38,6 +38,7 @@ class Scheduler(appier.Scheduler):
         self.email_references()
 
     def load(self):
+        appier.Scheduler.load(self)
         self.load_shopify()
         self.load_easypay()
 
