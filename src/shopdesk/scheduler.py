@@ -9,7 +9,7 @@ import easypay
 
 import shopdesk
 
-LOOP_TIMEOUT = 15.0
+LOOP_TIMEOUT = 30.0
 """ The time value to be used to sleep the main sequence
 loop between ticks, this value should not be too small
 to spend many resources or to high to create a long set
@@ -20,20 +20,36 @@ ORDER_TIMEOUT = 2.0 * 24.0 * 3600.0
 be used to measure the amount of time before an order
 is considered expired and it's canceled """
 
+WARNING_TIMEOUT = 1.0 * 24.0 * 3600.0
+""" The default order timeout value that is going to
+be used to measure the amount of time before an order
+is considered to be warned and an email is sent """
+
 class Scheduler(appier.Scheduler):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(
+        self,
+        owner,
+        order_timeout = ORDER_TIMEOUT,
+        warning_timeout = WARNING_TIMEOUT,
+        *args,
+        **kwargs
+    ):
         appier.Scheduler.__init__(
             self,
+            owner,
             timeout = LOOP_TIMEOUT,
             *args,
             **kwargs
         )
+        self.order_timeout = order_timeout
+        self.warning_timeout = warning_timeout
 
     def tick(self):
         appier.Scheduler.tick(self)
         self.check_orders()
         self.cancel_orders()
+        self.warn_orders()
         self.issue_references()
         self.note_references()
         self.email_references()
@@ -76,13 +92,23 @@ class Scheduler(appier.Scheduler):
             _order.save()
 
     def cancel_orders(self):
-        expiration = time.time() - ORDER_TIMEOUT
+        expiration = time.time() - self.order_timeout
         orders = shopdesk.Order.find(
             payment = shopdesk.Order.ISSUED,
             created = { "$lt" : expiration }
         )
         self.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
         for order in orders: order.cancel_s(self.easypay, self.shopify)
+
+    def warn_orders(self):
+        warning = time.time() - self.warning_timeout
+        orders = shopdesk.Order.find(
+            payment = shopdesk.Order.ISSUED,
+            warning_sent = False,
+            created = { "$lt" : warning }
+        )
+        self.logger.debug("Warning '%d' unpaid orders ..." % len(orders))
+        for order in orders: order.email_warning_s()
 
     def issue_references(self):
         orders = shopdesk.Order.find(payment = shopdesk.Order.PENDING)

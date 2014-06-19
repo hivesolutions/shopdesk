@@ -92,6 +92,12 @@ class Order(appier_extras.admin.Base):
         index = True
     )
 
+    warning_sent = appier.field(
+        type = bool,
+        safe = True,
+        index = True
+    )
+
     entity = appier.field(
         index = True
     )
@@ -135,7 +141,8 @@ class Order(appier_extras.admin.Base):
             s_email = order["email"],
             s_billing_name = order["billing_address"]["name"],
             note_sent = False,
-            email_sent = False
+            email_sent = False,
+            warning_sent = False
         )
 
     def pre_validate(self):
@@ -194,6 +201,16 @@ class Order(appier_extras.admin.Base):
             order = self
         )
         self.email_sent = True
+        self.save()
+
+    def email_warning_s(self):
+        self.send_email(
+            "email/warning.html.tpl",
+            receivers = [self.email_mime()],
+            subject = self.to_locale("Alerta para pagamento %s" % self.s_name),
+            order = self
+        )
+        self.warning_sent = True
         self.save()
 
     def email_mime(self):
