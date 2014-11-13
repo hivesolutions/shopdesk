@@ -4,5 +4,5 @@
 from . import base
 from . import admin
 
-from .base import *
-from .admin import *
+from .base import BaseController
+from .admin import AdminController

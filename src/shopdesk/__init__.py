@@ -8,5 +8,5 @@ from . import scheduler
 
 from .controllers import *
 from .models import *
-from .main import *
-from .scheduler import *
+from .main import ShopdeskApp
+from .scheduler import Scheduler

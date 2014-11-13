@@ -3,4 +3,4 @@
 
 from . import order
 
-from .order import *
+from .order import Order
