@@ -4,7 +4,7 @@
 import appier
 import appier_extras
 
-from . import scheduler
+from shopdesk import scheduler
 
 class ShopdeskApp(appier.WebApp):
 
