@@ -7,6 +7,9 @@
     </p>
     <p>
         If you're receiving this message and it's marked as SPAM please contact your system administrator immediately.<br/>
-        Please beaware that the fact that you're receiving this email using your provider does not guarantee that other providers will receive the same email.
+        Please beware that the fact that you're receiving this email using your provider does not guarantee that other providers will receive the same email.
+    </p>
+    <p>
+        For other questions regarding SMTP email sending please refer to you system administrator.
     </p>
 {% endblock %}
