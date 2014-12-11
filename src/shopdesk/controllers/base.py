@@ -17,4 +17,4 @@ class BaseController(appier.Controller):
 
     @appier.route("/unsubscribe", "GET")
     def unsubscribe(self):
-        return "This is a placeholder"
+        return "Thank you for unsubscribing from shopdesk"
