@@ -1,8 +1,8 @@
 {% extends "email/layout.html.tpl" %}
-{% block title %}Test{% endblock %}
+{% block title %}Email Test{% endblock %}
 {% block content %}
     <p>
-        This is a simple test mail for the Shopdesk infra-structure.<br/>
+        This is a simple test email for the Shopdesk infra-structure.<br/>
         If you're reading this message the message has been correctly processed and delivered using <strong>{{ config.conf("SMTP_HOST") }}:{{ config.conf("SMTP_PORT", "25") }}</strong>.
     </p>
     <p>
