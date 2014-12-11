@@ -12,4 +12,12 @@
     <p>
         For other questions regarding SMTP email sending please refer to you system administrator.
     </p>
+    <p>
+        Wife: "How would you describe me?"<br/>
+        Husband: "ABCDEFGHIJK." <br/>
+        Wife: "What does that mean?"<br/>
+        Husband: "Adorable, beautiful, cute, delightful, elegant, fashionable, gorgeous, and hot."<br/>
+        Wife: "Aw, thank you, but what about IJK?" <br/>
+        Husband: "I'm just kidding!"
+    </p>
 {% endblock %}
