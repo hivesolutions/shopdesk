@@ -14,3 +14,7 @@ class BaseController(appier.Controller):
         result = api.notify_mb(cin, username, doc)
         self.content_type("application/xml")
         return result
+
+    @appier.route("/unsubscribe", "GET")
+    def unsubscribe(self):
+        return "This is a placeholder"
