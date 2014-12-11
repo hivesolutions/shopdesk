@@ -1,5 +1,5 @@
 {% extends "email/layout.html.tpl" %}
-{% block title %}Email Test{% endblock %}
+{% block title %}Test email{% endblock %}
 {% block content %}
     <p>
         This is a simple test email for the Shopdesk infra-structure.<br/>
