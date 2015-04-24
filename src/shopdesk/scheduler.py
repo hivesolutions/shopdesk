@@ -95,7 +95,9 @@ class Scheduler(appier.Scheduler):
         expiration = time.time() - self.order_timeout
         orders = shopdesk.Order.find(
             payment = shopdesk.Order.ISSUED,
-            created = { "$lt" : expiration }
+            created = {
+                "$lt" : expiration
+            }
         )
         self.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
         for order in orders: order.cancel_s(self.easypay, self.shopify)
@@ -105,7 +107,9 @@ class Scheduler(appier.Scheduler):
         orders = shopdesk.Order.find(
             payment = shopdesk.Order.ISSUED,
             warning_sent = False,
-            created = { "$lt" : warning }
+            created = {
+                "$lt" : warning
+            }
         )
         self.logger.debug("Warning '%d' unpaid orders ..." % len(orders))
         for order in orders: order.email_warning_s()
