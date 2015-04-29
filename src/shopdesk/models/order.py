@@ -131,15 +131,18 @@ class Order(appier_extras.admin.Base):
 
     @classmethod
     def from_shopify(cls, order):
+        transactions = order.get("transactions", [])
+        gateway = order.get("gateway", None)
+        if transactions: gateway = transactions[0].get("gateway", gateway)
         return cls(
             s_id = order["id"],
             s_name = order["name"],
             s_total_price = order["total_price"],
             s_currency = order["currency"],
-            s_gateway = order["gateway"],
             s_status = order["financial_status"],
             s_email = order["email"],
             s_billing_name = order["billing_address"]["name"],
+            s_gateway = gateway,
             note_sent = False,
             email_sent = False,
             warning_sent = False
