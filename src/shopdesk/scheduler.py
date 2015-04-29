@@ -88,7 +88,9 @@ class Scheduler(appier.Scheduler):
             new_orders.append(order)
         self.logger.debug("Found '%d' new shopify orders", len(new_orders))
         for order in new_orders:
-            _order = shopdesk.Order.from_shopify(order)
+            order_id = order["id"]
+            transactions = self.shopify.transactions_order(order_id)
+            _order = shopdesk.Order.from_shopify(order, transactions = transactions)
             _order.save()
 
     def cancel_orders(self):
