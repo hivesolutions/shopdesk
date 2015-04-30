@@ -220,3 +220,7 @@ class Order(appier_extras.admin.Base):
 
     def email_mime(self):
         return "%s <%s>" % (self.s_billing_name, self.s_email)
+
+    @appier.operation
+    def cancel(self):
+        print("ola")
