@@ -27,6 +27,6 @@
     {{ h2("Estamos Sempre Consigo") }}
     <p>
         Algum problema? A nossa equipa de apoio está disponível para o ajudar.
-        Envie-nos um email para {{ link("mailto:ajuda@oioba.com", "ajuda@oioba.com", False) }}.
+        Envie-nos um email para {{ link("mailto:geral@oioba.com", "geral@oioba.com", False) }}.
     </p>
 {% endblock %}
