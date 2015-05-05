@@ -221,6 +221,10 @@ class Order(appier_extras.admin.Base):
     def email_mime(self):
         return "%s <%s>" % (self.s_billing_name, self.s_email)
 
-    @appier.operation
-    def cancel(self):
-        print("ola")
+    @appier.operation(name = "Email reference")
+    def email_reference(self):
+        self.email_reference_s()
+
+    @appier.operation(name = "Email warning")
+    def email_warning(self):
+        self.email_warning_s()
