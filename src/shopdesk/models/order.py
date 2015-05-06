@@ -130,6 +130,10 @@ class Order(appier_extras.admin.Base):
         return ["s_name", "s_total_price", "s_gateway", "s_billing_name", "payment"]
 
     @classmethod
+    def order_name(self):
+        return ("id", 1)
+
+    @classmethod
     def from_shopify(cls, order, transactions = []):
         gateway = order.get("gateway", None)
         if transactions: gateway = transactions[0].get("gateway", gateway)
