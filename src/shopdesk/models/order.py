@@ -225,10 +225,10 @@ class Order(appier_extras.admin.Base):
     def email_mime(self):
         return "%s <%s>" % (self.s_billing_name, self.s_email)
 
-    @appier.operation(name = "Email reference")
+    @appier.operation(name = "Send reference email")
     def email_reference(self):
         self.email_reference_s()
 
-    @appier.operation(name = "Email warning")
+    @appier.operation(name = "Send warning email")
     def email_warning(self):
         self.email_warning_s()
