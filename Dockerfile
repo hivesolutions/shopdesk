@@ -27,6 +27,7 @@ ENV EASYPAY_ENTITY EASYPAY_ENTITY
 ENV EASYPAY_USERNAME EASYPAY_ENTITY
 
 ADD requirements.txt /
+ADD extra.txt /
 ADD src /src
 
 RUN apt-get update && apt-get install -y -q python python-setuptools python-dev python-pip
