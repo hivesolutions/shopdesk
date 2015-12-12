@@ -20,7 +20,8 @@ class ShopdeskApp(appier.WebApp):
 
     def start(self):
         appier.WebApp.start(self)
-        self.scheduler.start()
+        scheduler = appier.conf("SCHEDULER", True, cast = bool)
+        if scheduler: self.scheduler.start()
 
 if __name__ == "__main__":
     app = ShopdeskApp()
