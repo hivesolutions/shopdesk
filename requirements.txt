@@ -1,0 +1,6 @@
+appier
+appier_extras
+jinja2
+pymongo
+easypay_api
+shopify_api
