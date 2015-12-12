@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
+import tempfile
+
 import appier
 import appier_extras
 
@@ -153,6 +156,30 @@ class Order(appier_extras.admin.Base):
             email_sent = False,
             warning_sent = False
         )
+
+    @classmethod
+    @appier.link(name = "Export Shelve")
+    def export_shelve_url(cls, absolute = False):
+        return appier.get_app().url_for(
+            "admin.export_shelve",
+            absolute = absolute
+        )
+
+    @classmethod
+    @appier.operation(
+        name = "Import Shelve",
+        parameters = (
+            ("Shelve File", "file", "file"),
+        )
+    )
+    def import_shelve_s(cls, file):
+        _file_name, _mime_type, data = file
+        app = appier.get_app()
+        shelve_path = app.scheduler.easypay.path
+        shelve_path = os.path.abspath(shelve_path)
+        file = open(shelve_path, "wb")
+        try: file.write(data)
+        finally: file.close()
 
     def pre_validate(self):
         appier_extras.admin.Base.pre_validate(self)

@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
+
 import appier
 import appier_extras
 
@@ -25,3 +27,10 @@ class AdminController(appier.Controller):
             subject = self.to_locale("Shopdesk test email")
         )
         return dict(email = email)
+
+    @appier.route("/admin/shelve", "GET")
+    @appier.ensure("admin")
+    def export_shelve(self):
+        shelve_path = self.scheduler.easypay.path
+        shelve_path = os.path.abspath(shelve_path)
+        return self.send_path(shelve_path)
