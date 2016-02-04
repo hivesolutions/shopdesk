@@ -21,7 +21,7 @@
                     {% block content %}{% endblock %}
                 </div>
                 <div class="footer" style="font-size:10px;line-height:16px;text-align:right;margin-top: 48px;">
-                    &copy; 2014-2015 Oiôba &middot; Todos os direitos reservados<br/>
+                    &copy; 2014-2016 Oiôba &middot; Todos os direitos reservados<br/>
                 </div>
             </div>
         </div>
