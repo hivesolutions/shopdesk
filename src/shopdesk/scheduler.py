@@ -47,12 +47,14 @@ class Scheduler(appier.Scheduler):
 
     def tick(self):
         appier.Scheduler.tick(self)
+        self.logger.debug("Start of tick operation ...")
         self.check_orders()
         self.cancel_orders()
         self.warn_orders()
         self.issue_references()
         self.note_references()
         self.email_references()
+        self.logger.debug("Ended tick operation")
 
     def load(self):
         appier.Scheduler.load(self)
