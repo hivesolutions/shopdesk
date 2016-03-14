@@ -8,13 +8,14 @@ from shopdesk import scheduler
 
 class ShopdeskApp(appier.WebApp):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         appier.WebApp.__init__(
             self,
             name = "shopdesk",
             parts = (
                 appier_extras.AdminPart,
-            )
+            ),
+            *args, **kwargs
         )
         self.scheduler = scheduler.Scheduler(self)
 
