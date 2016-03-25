@@ -20,8 +20,7 @@ class AdminController(appier.Controller):
         if not email: raise appier.OperationalError(
             message = "No email defined"
         )
-        base = appier_extras.admin.Base()
-        base.send_email(
+        appier_extras.admin.Base.send_email_g(
             "email/test.html.tpl",
             receivers = [email],
             subject = self.to_locale("Shopdesk test email")
