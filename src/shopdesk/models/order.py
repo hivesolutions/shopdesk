@@ -186,10 +186,10 @@ class Order(appier_extras.admin.Base):
         self.start_payment()
 
     def start_payment(self):
-        if hasattr(self, "payment"): return
+        if hasattr(self, "payment") and self.payment: return
         self.payment = Order.PAID
-        if not hasattr(self, "s_status") : return
-        if not hasattr(self, "s_gateway") : return
+        if not hasattr(self, "s_status") or not self.s_status: return
+        if not hasattr(self, "s_gateway") or not self.s_gateway: return
         if not self.s_gateway in Order.VALID_PAYMENTS: return
         if float(self.s_total_price) < Order.MIN_VALUE: return
         if self.s_status == "pending": self.payment = Order.PENDING; return
