@@ -2,3 +2,7 @@
 
 session.shelve*
 easypay.shelve*
+
+/dist
+/build
+/src/shopdesk.egg-info
