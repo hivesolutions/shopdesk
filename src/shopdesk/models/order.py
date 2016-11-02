@@ -136,10 +136,10 @@ class Order(appier_extras.admin.Base):
         return ("s_name", -1)
 
     @classmethod
-    def from_shopify(cls, order, transactions = []):
+    def from_shopify(cls, order, transactions = [], strict = False):
         gateway = order.get("gateway", None)
         if transactions: gateway = transactions[0].get("gateway", gateway)
-        if not gateway: raise appier.OperationalError(
+        if strict and not gateway: raise appier.OperationalError(
             message = "No gateway defined for order"
         )
         return cls(
