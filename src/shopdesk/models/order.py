@@ -138,6 +138,8 @@ class Order(appier_extras.admin.Base):
     @classmethod
     def from_shopify(cls, order, transactions = [], strict = False):
         gateway = order.get("gateway", None)
+        billing_address = order.get("billing_address", None)
+        billing_name = billing_address["name"] if billing_address else None
         if transactions: gateway = transactions[0].get("gateway", gateway)
         if strict and not gateway: raise appier.OperationalError(
             message = "No gateway defined for order"
@@ -149,7 +151,7 @@ class Order(appier_extras.admin.Base):
             s_currency = order["currency"],
             s_status = order["financial_status"],
             s_email = order["email"],
-            s_billing_name = order["billing_address"]["name"],
+            s_billing_name = billing_name,
             s_gateway = gateway,
             note_sent = False,
             email_sent = False,
