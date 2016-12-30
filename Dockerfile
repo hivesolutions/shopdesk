@@ -11,7 +11,7 @@ ENV SERVER_ENCODING gzip
 ENV HOST 0.0.0.0
 ENV PORT 8080
 ENV FORCE_SSL 1
-ENV MONGOHQ_URL mongodb://localhost:27017
+ENV MONGOHQ_URL mongodb://localhost
 ENV SCHEDULER 1
 ENV SENDER_EMAIL "Shopdesk <no-reply@shopdesk.com>"
 ENV LOGO_EMAIL 1
