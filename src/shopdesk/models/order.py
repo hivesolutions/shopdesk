@@ -133,7 +133,7 @@ class Order(appier_extras.admin.Base):
 
     @classmethod
     def order_name(self):
-        return ("created", -1)
+        return ("s_id", -1)
 
     @classmethod
     def from_shopify(cls, order, transactions = [], strict = False):
