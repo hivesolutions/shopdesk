@@ -223,11 +223,7 @@ class Order(appier_extras.admin.Base):
         self.logger.debug("Received payment for order '%s'" % self.s_name)
 
     def cancel_s(self, easypay, shopify, strict = False):
-        try:
-            easypay.cancel_mb(self.reference_id)
-        except:
-            if strict: raise
-
+        easypay.cancel_mb(self.reference_id)
         shopify.cancel_order(self.s_id, email = True)
         self.payment = Order.CANCELED
         self.save()
