@@ -1,8 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from . import base
 from . import admin
+from . import base
+from . import order
 
-from .base import BaseController
 from .admin import AdminController
+from .base import BaseController
+from .order import OrderController

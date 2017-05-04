@@ -70,13 +70,7 @@ class Scheduler(appier.Scheduler):
         )
 
     def load_easypay(self):
-        self.easypay = easypay.ShelveApi(
-            production = appier.conf("EASYPAY_PRODUCTION", cast = bool),
-            username = appier.conf("EASYPAY_USERNAME"),
-            password = appier.conf("EASYPAY_PASSWORD"),
-            cin = appier.conf("EASYPAY_CIN"),
-            entity = appier.conf("EASYPAY_ENTITY")
-        )
+        self.easypay = easypay.ShelveApi()
         self.easypay.bind("paid", self.on_paid)
         self.easypay.start_scheduler()
 

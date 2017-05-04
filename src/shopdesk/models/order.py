@@ -159,6 +159,14 @@ class Order(appier_extras.admin.Base):
         )
 
     @classmethod
+    @appier.link(name = "Generate MB")
+    def generate_mb(cls, absolute = False):
+        return appier.get_app().url_for(
+            "order.generate_mb_json",
+            absolute = absolute
+        )
+
+    @classmethod
     @appier.link(name = "Export Shelve")
     def export_shelve_url(cls, absolute = False):
         return appier.get_app().url_for(
