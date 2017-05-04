@@ -109,7 +109,8 @@ class Order(appier_extras.admin.Base):
     )
 
     reference_id = appier.field(
-        index = True
+        index = True,
+        description = "Reference ID"
     )
 
     @classmethod
@@ -221,8 +222,12 @@ class Order(appier_extras.admin.Base):
         self.save()
         self.logger.debug("Received payment for order '%s'" % self.s_name)
 
-    def cancel_s(self, easypay, shopify):
-        easypay.cancel_mb(self.reference_id)
+    def cancel_s(self, easypay, shopify, strict = False):
+        try:
+            easypay.cancel_mb(self.reference_id)
+        except:
+            if strict: raise
+
         shopify.cancel_order(self.s_id, email = True)
         self.payment = Order.CANCELED
         self.save()
