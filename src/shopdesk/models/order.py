@@ -133,7 +133,7 @@ class Order(appier_extras.admin.Base):
         return ["s_name", "s_total_price", "s_gateway", "s_billing_name", "payment"]
 
     @classmethod
-    def order_name(self):
+    def order_name(cls):
         return ("s_id", -1)
 
     @classmethod
