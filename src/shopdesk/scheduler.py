@@ -62,7 +62,7 @@ class Scheduler(appier.Scheduler):
         self.load_easypay()
 
     def load_shopify(self):
-        self.shopify = shopify.Api(
+        self.shopify = shopify.API(
             api_key = appier.conf("SHOPIFY_API_KEY"),
             password = appier.conf("SHOPIFY_PASSWORD"),
             secret = appier.conf("SHOPIFY_SECRET"),
@@ -70,7 +70,7 @@ class Scheduler(appier.Scheduler):
         )
 
     def load_easypay(self):
-        self.easypay = easypay.ShelveApi()
+        self.easypay = easypay.ShelveAPI()
         self.easypay.bind("paid", self.on_paid)
         self.easypay.start_scheduler()
 

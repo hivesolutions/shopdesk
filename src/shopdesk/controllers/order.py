@@ -16,4 +16,4 @@ class OrderController(appier.Controller):
         return reference
 
     def get_easypay(self):
-        return easypay.Api()
+        return easypay.API()
