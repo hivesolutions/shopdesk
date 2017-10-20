@@ -54,6 +54,7 @@ class Scheduler(appier.Scheduler):
         self.issue_references()
         self.note_references()
         self.email_references()
+        self.email_confirmations()
         self.logger.debug("Ended tick operation")
 
     def load(self):
@@ -128,6 +129,11 @@ class Scheduler(appier.Scheduler):
         orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, email_sent = False)
         self.logger.debug("Sending emails for '%d' orders ..." % len(orders))
         for order in orders: order.email_reference_s()
+
+    def email_confirmations(self):
+        orders = shopdesk.Order.find(payment = shopdesk.Order.PAID, confirmation_sent = False)
+        self.logger.debug("Sending confirmation emails for '%d' orders ..." % len(orders))
+        for order in orders: order.email_confirmation_s()
 
     def on_paid(self, reference, details):
         identifier = reference["identifier"]
