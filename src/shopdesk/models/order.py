@@ -288,7 +288,7 @@ class Order(appier_extras.admin.Base):
 
     @appier.operation(name = "Send confirmation email")
     def email_confirmation(self):
-        self.email_confirmation()
+        self.email_confirmation_s()
 
     @appier.operation(name = "Mark confirmation sent")
     def mark_confirmation_sent(self):
