@@ -100,6 +100,12 @@ class Order(appier_extras.admin.Base):
         index = True
     )
 
+    confirmation_sent = appier.field(
+        type = bool,
+        safe = True,
+        index = True
+    )
+
     entity = appier.field(
         index = True
     )
@@ -259,6 +265,16 @@ class Order(appier_extras.admin.Base):
         self.warning_sent = True
         self.save()
 
+    def email_confirmation_s(self):
+        self.send_email(
+            "email/confirmation.html.tpl",
+            receivers = [self.email_mime()],
+            subject = self.to_locale("Confirmação de pagamento %s" % self.s_name),
+            order = self
+        )
+        self.confirmation_sent = True
+        self.save()
+
     def email_mime(self):
         return "%s <%s>" % (self.s_billing_name, self.s_email)
 
@@ -269,3 +285,12 @@ class Order(appier_extras.admin.Base):
     @appier.operation(name = "Send warning email")
     def email_warning(self):
         self.email_warning_s()
+
+    @appier.operation(name = "Send confirmation email")
+    def email_confirmation(self):
+        self.email_confirmation()
+
+    @appier.operation(name = "Mark confirmation sent")
+    def mark_confirmation_sent(self):
+        self.confirmation_sent = True
+        self.save()
