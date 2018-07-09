@@ -35,43 +35,51 @@ class Order(appier_extras.admin.Base):
         type = int,
         index = True,
         immutable = True,
-        default = True
+        default = True,
+        description = "ID"
     )
 
     s_name = appier.field(
         index = True,
-        immutable = True
+        immutable = True,
+        description = "Name"
     )
 
     s_total_price = appier.field(
         index = True,
-        immutable = True
+        immutable = True,
+        description = "Total Price"
     )
 
     s_currency = appier.field(
         index = True,
-        immutable = True
+        immutable = True,
+        description = "Currency"
     )
 
     s_gateway = appier.field(
         index = True,
-        immutable = True
+        immutable = True,
+        description = "Gateway"
     )
 
     s_status = appier.field(
         index = True,
-        immutable = True
+        immutable = True,
+        description = "Status"
     )
 
     s_email = appier.field(
         index = True,
         immutable = True,
-        meta = "email"
+        meta = "email",
+        description = "Email"
     )
 
     s_billing_name = appier.field(
         index = True,
-        immutable = True
+        immutable = True,
+        description = "Billing Name"
     )
 
     payment = appier.field(
@@ -136,7 +144,14 @@ class Order(appier_extras.admin.Base):
 
     @classmethod
     def list_names(cls):
-        return ["s_name", "s_total_price", "s_gateway", "s_billing_name", "payment"]
+        return [
+            "s_name",
+            "s_total_price",
+            "s_gateway",
+            "s_billing_name",
+            "created",
+            "payment"
+        ]
 
     @classmethod
     def order_name(cls):
