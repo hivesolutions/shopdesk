@@ -18,6 +18,7 @@ class ShopdeskApp(appier.WebApp):
             *args, **kwargs
         )
         self.scheduler = scheduler.Scheduler(self)
+        self.strict = appier.conf("STRICT", True, cast = bool)
 
     def start(self):
         appier.WebApp.start(self)

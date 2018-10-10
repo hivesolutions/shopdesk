@@ -101,7 +101,8 @@ class Scheduler(appier.Scheduler):
             }
         )
         self.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
-        for order in orders: order.cancel_s(self.easypay, self.shopify)
+        for order in orders:
+            order.cancel_s(self.easypay, self.shopify, strict = self.owner.strict)
 
     def warn_orders(self):
         warning = time.time() - self.warning_timeout
@@ -138,4 +139,4 @@ class Scheduler(appier.Scheduler):
     def on_paid(self, reference, details):
         identifier = reference["identifier"]
         order = shopdesk.Order.get(reference_id = identifier, raise_e = False)
-        order.pay_s(self.shopify)
+        order.pay_s(self.shopify, strict = self.owner.strict)
