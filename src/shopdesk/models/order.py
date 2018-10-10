@@ -237,15 +237,25 @@ class Order(appier_extras.admin.Base):
         self.save()
         self.logger.debug("Issued reference for order '%s'" % self.s_name)
 
-    def pay_s(self, shopify):
-        shopify.pay_order(self.s_id)
+    def pay_s(self, shopify, strict = False):
+        try:
+            shopify.pay_order(self.s_id)
+        except:
+            if strict: raise
+            self.logger.error("Problem confirming payment for order '%s'" % self.s_name)
+
         self.payment = Order.PAID
         self.save()
         self.logger.debug("Received payment for order '%s'" % self.s_name)
 
     def cancel_s(self, easypay, shopify, strict = False):
-        easypay.cancel_mb(self.reference_id)
-        shopify.cancel_order(self.s_id, email = True)
+        try:
+            easypay.cancel_mb(self.reference_id)
+            shopify.cancel_order(self.s_id, email = True)
+        except:
+            if strict: raise
+            self.logger.error("Problem canceling order '%s'" % self.s_name)
+
         self.payment = Order.CANCELED
         self.save()
         self.logger.debug("Canceled and reversed order '%s'" % self.s_name)
