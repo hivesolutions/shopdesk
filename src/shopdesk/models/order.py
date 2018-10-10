@@ -163,9 +163,10 @@ class Order(appier_extras.admin.Base):
         billing_address = order.get("billing_address", None)
         billing_name = billing_address["name"] if billing_address else None
         if transactions: gateway = transactions[0].get("gateway", gateway)
-        if strict and not gateway: raise appier.OperationalError(
-            message = "No gateway defined for order"
-        )
+        if strict and not gateway:
+            raise appier.OperationalError(
+                message = "No gateway defined for order"
+            )
         return cls(
             s_id = order["id"],
             s_name = order["name"],
