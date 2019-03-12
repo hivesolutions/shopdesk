@@ -241,7 +241,7 @@ class Order(appier_extras.admin.Base):
     def pay_s(self, shopify, strict = True):
         try:
             shopify.pay_order(self.s_id)
-        except:
+        except Exception:
             self.logger.error("Problem confirming payment for order '%s'" % self.s_name)
             if strict: raise
 
@@ -253,7 +253,7 @@ class Order(appier_extras.admin.Base):
         try:
             easypay.cancel_mb(self.reference_id)
             shopify.cancel_order(self.s_id, email = True)
-        except:
+        except Exception:
             self.logger.error("Problem canceling order '%s'" % self.s_name)
             if strict: raise
 
