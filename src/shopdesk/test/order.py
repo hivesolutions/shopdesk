@@ -25,6 +25,7 @@ class OrderTest(unittest.TestCase):
             total_price = "20.00",
             currency = "EUR",
             financial_status = "pending",
+            fulfillment_status = "partial",
             email = "username@domain.com",
             billing_address = dict(name = "name"),
         )
@@ -36,6 +37,7 @@ class OrderTest(unittest.TestCase):
         self.assertEqual(order.s_total_price, "20.00")
         self.assertEqual(order.s_currency, "EUR")
         self.assertEqual(order.s_status, "pending")
+        self.assertEqual(order.s_fulfillment, "partial")
         self.assertEqual(order.s_email, "username@domain.com")
         self.assertEqual(order.s_billing_name, "name")
         self.assertEqual(order.s_gateway, "mb")
@@ -51,6 +53,7 @@ class OrderTest(unittest.TestCase):
         self.assertEqual(order.s_total_price, "20.00")
         self.assertEqual(order.s_currency, "EUR")
         self.assertEqual(order.s_status, "pending")
+        self.assertEqual(order.s_fulfillment, "partial")
         self.assertEqual(order.s_email, "username@domain.com")
         self.assertEqual(order.s_billing_name, "name")
         self.assertEqual(order.s_gateway, "mb")
