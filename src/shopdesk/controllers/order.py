@@ -36,11 +36,11 @@ class OrderController(appier.Controller):
         for order in orders:
             s_shipping_zip = order.s_shipping_zip or ""
             if not "-" in s_shipping_zip: s_shipping_zip += "-"
-            weight = "%.2f" % (order.quantity_s * weight)
+            weight = "%.2f" % (order.s_quantity * weight)
             weight = weight.replace(".", ",")
             line = dict(
                 reference = order.s_name,
-                quantity = int(order.quantity_s) if quantity == None else quantity,
+                quantity = int(order.s_quantity) if quantity == None else quantity,
                 weight = weight,
                 price = "0ue",
                 destiny = order.s_shipping_name[:60],
