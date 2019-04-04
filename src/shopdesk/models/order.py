@@ -70,6 +70,12 @@ class Order(base.ShopdeskBase):
         description = "Quantity"
     )
 
+    s_created_at = appier.field(
+        index = True,
+        immutable = True,
+        description = "Created At"
+    )
+
     s_gateway = appier.field(
         index = True,
         immutable = True,
@@ -236,6 +242,7 @@ class Order(base.ShopdeskBase):
             s_name = order["name"],
             s_total_price = order["total_price"],
             s_currency = order["currency"],
+            s_created_at = order["created_at"],
             s_status = order["financial_status"],
             s_fulfillment = order["fulfillment_status"],
             s_email = order["email"],
@@ -300,6 +307,18 @@ class Order(base.ShopdeskBase):
     def paid_v(cls, *args, **kwargs):
         kwargs["sort"] = kwargs.get("sort", [("s_id", -1)])
         kwargs.update(s_status = "paid")
+        return appier.lazy_dict(
+            model = cls,
+            kwargs = kwargs,
+            entities = appier.lazy(lambda: cls.find(*args, **kwargs)),
+            page = appier.lazy(lambda: cls.paginate(*args, **kwargs))
+        )
+
+    @classmethod
+    @appier.view(name = "Pending")
+    def pending_v(cls, *args, **kwargs):
+        kwargs["sort"] = kwargs.get("sort", [("s_id", -1)])
+        kwargs.update(s_status = "paid", s_fulfillment = None)
         return appier.lazy_dict(
             model = cls,
             kwargs = kwargs,
