@@ -288,6 +288,18 @@ class Order(appier_extras.admin.Base):
         try: file.write(data)
         finally: file.close()
 
+    @classmethod
+    @appier.view(name = "Paid")
+    def paid_v(cls, *args, **kwargs):
+        kwargs["sort"] = kwargs.get("sort", [("s_id", -1)])
+        kwargs.update(payment = cls.PAID)
+        return appier.lazy_dict(
+            model = cls,
+            kwargs = kwargs,
+            entities = appier.lazy(lambda: cls.find(*args, **kwargs)),
+            page = appier.lazy(lambda: cls.paginate(*args, **kwargs))
+        )
+
     def pre_validate(self):
         appier_extras.admin.Base.pre_validate(self)
 

@@ -27,13 +27,12 @@ class OrderController(appier.Controller):
             alias = True,
             find = True,
             limit = 0,
-            sort = [("id", -1)]
+            sort = [("s_id", -1)]
         )
         if paid: object["payment"] = shopdesk.Order.PAID
         orders = self.admin_part._find_view(shopdesk.Order, **object)
         orders_s = []
         for order in orders:
-            order.quantity = 12 #@ todo get the quantity from the lines
             s_shipping_zip = order.s_shipping_zip or ""
             if not "-" in s_shipping_zip: s_shipping_zip += "-"
             weight = "%.2f" % (order.quantity * 100)
