@@ -23,6 +23,7 @@ class OrderController(appier.Controller):
         paid = self.field("paid", True, cast = bool)
         sms = self.field("sms", False, cast = bool)
         quantity = self.field("quantity", 1, cast = int)
+        weight = self.field("weight", 100, cast = int)
         object = appier.get_object(
             alias = True,
             find = True,
@@ -35,11 +36,11 @@ class OrderController(appier.Controller):
         for order in orders:
             s_shipping_zip = order.s_shipping_zip or ""
             if not "-" in s_shipping_zip: s_shipping_zip += "-"
-            weight = "%.2f" % (order.quantity * 100)
+            weight = "%.2f" % (order.quantity_s * weight)
             weight = weight.replace(".", ",")
             line = dict(
                 reference = order.s_name,
-                quantity = int(order.quantity) if quantity == None else quantity,
+                quantity = int(order.quantity_s) if quantity == None else quantity,
                 weight = weight,
                 price = "0ue",
                 destiny = order.s_shipping_name[:60],
