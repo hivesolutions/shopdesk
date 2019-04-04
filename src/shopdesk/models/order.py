@@ -6,7 +6,9 @@ import os
 import appier
 import appier_extras
 
-class Order(appier_extras.admin.Base):
+from . import base
+
+class Order(base.ShopdeskBase):
 
     PENDING = 1
     ISSUED = 2
@@ -76,13 +78,11 @@ class Order(appier_extras.admin.Base):
 
     s_status = appier.field(
         index = True,
-        immutable = True,
         description = "Status"
     )
 
     s_fulfillment = appier.field(
         index = True,
-        immutable = True,
         description = "Fulfillment"
     )
 
@@ -397,6 +397,13 @@ class Order(appier_extras.admin.Base):
 
     def email_mime(self):
         return "%s <%s>" % (self.s_billing_name, self.s_email)
+
+    @appier.operation(name = "Sync Shopify")
+    def sync_shopify_s(self):
+        order = self.shopify_api.get_order(id = self.s_id)
+        self.s_status = order["financial_status"]
+        self.s_fulfillment = order["fulfillment_status"]
+        self.save()
 
     @appier.operation(name = "Send reference email")
     def email_reference(self):
