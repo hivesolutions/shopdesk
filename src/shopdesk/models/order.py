@@ -80,6 +80,12 @@ class Order(appier_extras.admin.Base):
         description = "Status"
     )
 
+    s_fulfillment = appier.field(
+        index = True,
+        immutable = True,
+        description = "Fulfillment"
+    )
+
     s_email = appier.field(
         index = True,
         immutable = True,
@@ -231,6 +237,7 @@ class Order(appier_extras.admin.Base):
             s_total_price = order["total_price"],
             s_currency = order["currency"],
             s_status = order["financial_status"],
+            s_fulfillment = order["fulfillment_status"],
             s_email = order["email"],
             s_quantity = quantity,
             s_gateway = gateway,
