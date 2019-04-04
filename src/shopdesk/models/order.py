@@ -292,7 +292,7 @@ class Order(appier_extras.admin.Base):
     @appier.view(name = "Paid")
     def paid_v(cls, *args, **kwargs):
         kwargs["sort"] = kwargs.get("sort", [("s_id", -1)])
-        kwargs.update(payment = cls.PAID)
+        kwargs.update(s_status = "paid")
         return appier.lazy_dict(
             model = cls,
             kwargs = kwargs,
