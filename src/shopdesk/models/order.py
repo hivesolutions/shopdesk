@@ -42,19 +42,30 @@ class Order(appier_extras.admin.Base):
     s_name = appier.field(
         index = True,
         immutable = True,
-        description = "Name"
+        description = "Name",
+        observations = """The descriptive name/identifier
+        of the order, to be human readable"""
     )
 
     s_total_price = appier.field(
         index = True,
         immutable = True,
-        description = "Total Price"
+        description = "Total Price",
+        observations = """The total financial value of the
+        order in the order defined currency"""
     )
 
     s_currency = appier.field(
         index = True,
         immutable = True,
         description = "Currency"
+    )
+
+    s_quantity = appier.field(
+        type = int,
+        index = True,
+        immutable = True,
+        description = "Quantity"
     )
 
     s_gateway = appier.field(
@@ -74,6 +85,42 @@ class Order(appier_extras.admin.Base):
         immutable = True,
         meta = "email",
         description = "Email"
+    )
+
+    s_shipping_name = appier.field(
+        index = True,
+        immutable = True,
+        description = "Shipping Name"
+    )
+
+    s_shipping_street = appier.field(
+        index = True,
+        immutable = True,
+        description = "Shipping Street"
+    )
+
+    s_shipping_city = appier.field(
+        index = True,
+        immutable = True,
+        description = "Shipping City"
+    )
+
+    s_shipping_province = appier.field(
+        index = True,
+        immutable = True,
+        description = "Shipping Province"
+    )
+
+    s_shipping_country_code = appier.field(
+        index = True,
+        immutable = True,
+        description = "Shipping Country Code"
+    )
+
+    s_shipping_zip = appier.field(
+        index = True,
+        immutable = True,
+        description = "Shipping Zip Code"
     )
 
     s_billing_name = appier.field(
@@ -160,8 +207,19 @@ class Order(appier_extras.admin.Base):
     @classmethod
     def from_shopify(cls, order, transactions = [], strict = False):
         gateway = order.get("gateway", None)
-        billing_address = order.get("billing_address", None)
-        billing_name = billing_address["name"] if billing_address else None
+        line_items = order.get("line_items", [])
+        shipping_address = order.get("shipping_address", {})
+        billing_address = order.get("billing_address", {})
+        quantity = sum([line_item["quantity"] for line_item in line_items])
+        shipping_name = shipping_address.get("name", None)
+        shipping_address1 = shipping_address.get("address1", None)
+        shipping_address2 = shipping_address.get("address2", None)
+        shipping_city = shipping_address.get("city", None)
+        shipping_province = shipping_address.get("province", None)
+        shipping_country_code = shipping_address.get("country_code", None)
+        shipping_zip = shipping_address.get("zip", None)
+        billing_name = billing_address.get("name", None)
+        shipping_street = "%s%s" % (shipping_address1 or "", shipping_address2 or "")
         if transactions: gateway = transactions[0].get("gateway", gateway)
         if strict and not gateway:
             raise appier.OperationalError(
@@ -174,8 +232,15 @@ class Order(appier_extras.admin.Base):
             s_currency = order["currency"],
             s_status = order["financial_status"],
             s_email = order["email"],
-            s_billing_name = billing_name,
+            s_quantity = quantity,
             s_gateway = gateway,
+            s_shipping_name = shipping_name,
+            s_shipping_street = shipping_street,
+            s_shipping_city = shipping_city,
+            s_shipping_province = shipping_province,
+            s_shipping_country_code = shipping_country_code,
+            s_shipping_zip = shipping_zip,
+            s_billing_name = billing_name,
             note_sent = False,
             email_sent = False,
             warning_sent = False
@@ -194,6 +259,16 @@ class Order(appier_extras.admin.Base):
     def export_shelve_url(cls, absolute = False):
         return appier.get_app().url_for(
             "admin.export_shelve",
+            absolute = absolute
+        )
+
+    @classmethod
+    @appier.link(name = "Export CTT", context = True)
+    def ctt_csv_url(cls, view = None, context = None, absolute = False):
+        return appier.get_app().url_for(
+            "order.ctt_csv",
+            view = view,
+            context = context,
             absolute = absolute
         )
 
