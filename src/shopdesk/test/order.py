@@ -24,6 +24,7 @@ class OrderTest(unittest.TestCase):
             name = "name",
             total_price = "20.00",
             currency = "EUR",
+            created_at = "2019-01-01T17:00:00+01:00",
             financial_status = "pending",
             fulfillment_status = "partial",
             email = "username@domain.com",
@@ -36,6 +37,7 @@ class OrderTest(unittest.TestCase):
         self.assertEqual(order.s_name, "name")
         self.assertEqual(order.s_total_price, "20.00")
         self.assertEqual(order.s_currency, "EUR")
+        self.assertEqual(order.s_created_at, "2019-01-01T17:00:00+01:00")
         self.assertEqual(order.s_status, "pending")
         self.assertEqual(order.s_fulfillment, "partial")
         self.assertEqual(order.s_email, "username@domain.com")
@@ -52,6 +54,7 @@ class OrderTest(unittest.TestCase):
         self.assertEqual(order.s_name, "name")
         self.assertEqual(order.s_total_price, "20.00")
         self.assertEqual(order.s_currency, "EUR")
+        self.assertEqual(order.s_created_at, "2019-01-01T17:00:00+01:00")
         self.assertEqual(order.s_status, "pending")
         self.assertEqual(order.s_fulfillment, "partial")
         self.assertEqual(order.s_email, "username@domain.com")
