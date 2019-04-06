@@ -141,6 +141,13 @@ class Order(base.ShopdeskBase):
         description = "Billing Name"
     )
 
+    s_line_items = appier.field(
+        type = list,
+        observations = """The order lines containing the
+        information associated with the current order from
+        the source e-commerce system"""
+    )
+
     payment = appier.field(
         type = int,
         safe = True,
@@ -255,6 +262,7 @@ class Order(base.ShopdeskBase):
             s_shipping_country_code = shipping_country_code,
             s_shipping_zip = shipping_zip,
             s_billing_name = billing_name,
+            s_line_items = line_items,
             note_sent = False,
             email_sent = False,
             warning_sent = False
@@ -422,6 +430,7 @@ class Order(base.ShopdeskBase):
         order = self.shopify_api.get_order(id = self.s_id)
         self.s_status = order["financial_status"]
         self.s_fulfillment = order["fulfillment_status"]
+        if self.s_status == "paid": self.payment = Order.PAID
         self.save()
 
     @appier.operation(name = "Send reference email")
