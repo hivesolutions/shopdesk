@@ -143,6 +143,7 @@ class Order(base.ShopdeskBase):
 
     s_line_items = appier.field(
         type = list,
+        description = "Line Items",
         observations = """The order lines containing the
         information associated with the current order from
         the source e-commerce system"""
