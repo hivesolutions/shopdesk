@@ -431,6 +431,7 @@ class Order(base.ShopdeskBase):
         order = self.shopify_api.get_order(id = self.s_id)
         self.s_status = order["financial_status"]
         self.s_fulfillment = order["fulfillment_status"]
+        self.s_line_items = order.get("line_items", [])
         if self.s_status == "paid": self.payment = Order.PAID
         self.save()
 
