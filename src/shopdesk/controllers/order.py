@@ -17,6 +17,21 @@ class OrderController(appier.Controller):
         reference = easypay.generate_mb(amount)
         return reference
 
+    @appier.route("/orders/checker", "GET", json = True)
+    @appier.ensure(token = "admin")
+    def checker(self):
+        object = appier.get_object(
+            alias = True,
+            find = True,
+            limit = 0,
+            sort = [("s_id", -1)]
+        )
+        orders = self.admin_part._find_view(shopdesk.Order, **object)
+        return self.template(
+            "order/checker.html.tpl",
+            orders = orders
+        )
+
     @appier.route("/orders/ctt.csv", "GET")
     @appier.ensure(token = "admin")
     def ctt_csv(self):
