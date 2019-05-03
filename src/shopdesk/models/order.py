@@ -296,6 +296,16 @@ class Order(base.ShopdeskBase):
         )
 
     @classmethod
+    @appier.link(name = "Checker Report", context = True)
+    def checker_url(cls, view = None, context = None, absolute = False):
+        return appier.get_app().url_for(
+            "order.checker",
+            view = view,
+            context = context,
+            absolute = absolute
+        )
+
+    @classmethod
     @appier.operation(
         name = "Import Shelve",
         parameters = (

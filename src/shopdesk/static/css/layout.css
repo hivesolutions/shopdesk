@@ -1,1 +1,19 @@
 @charset "utf-8";
+
+body {
+    font-family: "Open Sans", arial;
+}
+
+body.order-checker {
+    margin: 0px auto 0px auto;
+    width: 1024px;
+}
+
+body.order-checker th {
+    text-align: left;
+}
+
+body.order-checker th,
+body.order-checker td {
+    padding: 4px 8px 4px 8px;
+}
