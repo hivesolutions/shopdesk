@@ -42,5 +42,6 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="footer">Document generated on the {{ date_time(time.time(), format = "%d %b %Y %H:%M") }} (UTC)</div>
 </body>
 </html>

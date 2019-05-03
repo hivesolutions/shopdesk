@@ -37,3 +37,9 @@ body.order-checker tr.simple td {
     line-height: 0px;
     padding: 0px 8px 0px 8px;
 }
+
+body.order-checker .footer {
+    font-size: 13px;
+    margin-top: 32px;
+    text-align: center;
+}
