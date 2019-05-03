@@ -22,7 +22,7 @@ body.order-checker table th {
 
 body.order-checker table th,
 body.order-checker table td {
-    padding: 8px 8px 8px 8px;
+    padding: 12px 8px 12px 8px;
 }
 
 body.order-checker table th.highlight,
@@ -32,7 +32,7 @@ body.order-checker table td.highlight {
 
 body.order-checker tr.simple th,
 body.order-checker tr.simple td {
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid #bbbbbb;
     font-size: 0px;
     line-height: 0px;
     padding: 0px 8px 0px 8px;
