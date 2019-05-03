@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import time
 
 import appier
 import appier_extras
@@ -337,7 +338,11 @@ class Order(base.ShopdeskBase):
     @appier.view(name = "Pending")
     def pending_v(cls, *args, **kwargs):
         kwargs["sort"] = kwargs.get("sort", [("s_id", -1)])
-        kwargs.update(s_status = "paid", s_fulfillment = None)
+        kwargs.update(
+            s_status = "paid",
+            s_fulfillment = None,
+            created = {"$gt" : time.time() - 7776000}
+        )
         return appier.lazy_dict(
             model = cls,
             kwargs = kwargs,
