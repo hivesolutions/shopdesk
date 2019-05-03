@@ -17,3 +17,9 @@ body.order-checker th,
 body.order-checker td {
     padding: 4px 8px 4px 8px;
 }
+
+body.order-checker tr.simple th,
+body.order-checker tr.simple td {
+    font-size: 8px;
+    padding: 0px 8px 0px 8px;
+}

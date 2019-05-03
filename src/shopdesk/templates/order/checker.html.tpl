@@ -24,12 +24,12 @@
                         <td>{{ order.s_shipping_name }}</td>
                         <td>{{ order.s_shipping_street }}</td>
                         <td>{{ line.name }}</td>
-                        <td>{{ line.quantity }}</td>
+                        <td>{{ line.quantity }}x</td>
                         <td>▢</td>
                     </tr>
                 {% endfor %}
-                <tr>
-                    <td>--</td>
+                <tr class="simple">
+                    <td>&nbsp;</td>
                     <td></td>
                     <td></td>
                     <td></td>
