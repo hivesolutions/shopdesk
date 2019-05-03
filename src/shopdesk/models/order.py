@@ -340,7 +340,7 @@ class Order(base.ShopdeskBase):
         kwargs["sort"] = kwargs.get("sort", [("s_id", -1)])
         kwargs.update(
             s_status = "paid",
-            s_fulfillment = None,
+            s_fulfillment = {"$in": [None, ""]},
             created = {"$gt" : time.time() - 7776000}
         )
         return appier.lazy_dict(
