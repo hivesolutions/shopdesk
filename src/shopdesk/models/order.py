@@ -428,6 +428,14 @@ class Order(base.ShopdeskBase):
 
     @appier.operation(name = "Sync Shopify")
     def sync_shopify_s(self):
+        """
+        Updates the current local status of the order according
+        to the values provided by the remote Shopify source.
+
+        This is should not be run as part of a scheduler inside
+        a bulk based operation to avoid extreme resources usage.
+        """
+
         order = self.shopify_api.get_order(id = self.s_id)
         self.s_status = order["financial_status"]
         self.s_fulfillment = order["fulfillment_status"]
