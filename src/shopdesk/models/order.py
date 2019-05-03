@@ -454,6 +454,7 @@ class Order(base.ShopdeskBase):
         if self.s_status == "refunded": self.payment = Order.REFUNDED
         if self.s_status == "paid": self.payment = Order.PAID
         self.save()
+        self.logger.debug("Synchronized order '%s' with Shopify" % self.s_name)
 
     @appier.operation(name = "Send reference email")
     def email_reference(self):
