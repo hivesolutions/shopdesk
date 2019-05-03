@@ -11,6 +11,7 @@
                 <th>Order</th>
                 <th>Customer</th>
                 <th>Street</th>
+                <th>City</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Verify</th>
@@ -23,6 +24,7 @@
                         <td>{{ order.s_name }}</td>
                         <td>{{ order.s_shipping_name }}</td>
                         <td>{{ order.s_shipping_street }}</td>
+                        <td>{{ order.s_shipping_city }}</td>
                         <td>{{ line.name }}</td>
                         <td>{{ line.quantity }}x</td>
                         <td>▢</td>
@@ -30,6 +32,7 @@
                 {% endfor %}
                 <tr class="simple">
                     <td>&nbsp;</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

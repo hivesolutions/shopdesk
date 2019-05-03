@@ -2,24 +2,33 @@
 
 body {
     font-family: "Open Sans", arial;
+    font-size: 14px;
 }
 
-body.order-checker {
+body.order-checker table {
+    font-size: 14px;
+}
+
+body.order-checker table {
+    border-collapse: collapse;
     margin: 0px auto 0px auto;
     width: 1024px;
 }
 
-body.order-checker th {
+body.order-checker table th {
+    border-bottom: 1px solid #2d2d2d;
     text-align: left;
 }
 
-body.order-checker th,
-body.order-checker td {
-    padding: 4px 8px 4px 8px;
+body.order-checker table th,
+body.order-checker table td {
+    padding: 8px 8px 8px 8px;
 }
 
 body.order-checker tr.simple th,
 body.order-checker tr.simple td {
-    font-size: 8px;
+    border-bottom: 1px solid #cccccc;
+    font-size: 0px;
+    line-height: 0px;
     padding: 0px 8px 0px 8px;
 }
