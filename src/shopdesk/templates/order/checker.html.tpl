@@ -21,11 +21,11 @@
             {% for order in orders %}
                 {% for line in order.s_line_items %}
                     <tr>
-                        <td>{{ order.s_name }}</td>
+                        <td class="highlight">{{ order.s_name }}</td>
                         <td>{{ order.s_shipping_name }}</td>
                         <td>{{ order.s_shipping_street }}</td>
                         <td>{{ order.s_shipping_city }}</td>
-                        <td>{{ line.name }}</td>
+                        <td class="highlight">{{ line.name }}</td>
                         <td>{{ line.quantity }}x</td>
                         <td>▢</td>
                     </tr>
