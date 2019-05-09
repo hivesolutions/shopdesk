@@ -11,6 +11,7 @@
                 <th>Order</th>
                 <th>Customer</th>
                 <th>Street</th>
+                <th>Zip Code</th>
                 <th>City</th>
                 <th>Product</th>
                 <th>Quantity</th>
@@ -24,7 +25,8 @@
                         <td class="highlight">{{ order.s_name }}</td>
                         <td>{{ order.s_shipping_name }}</td>
                         <td>{{ order.s_shipping_street }}</td>
-                        <td>{{ order.s_shipping_city }}</td>
+                        <td>{{ order.s_shipping_zip }}</td>
+                        <td>{{ order.s_shipping_city }} ({{ order.s_shipping_country_code }})</td>
                         <td class="highlight">{{ line.name }}</td>
                         <td>{{ line.quantity }}x</td>
                         <td>▢</td>
