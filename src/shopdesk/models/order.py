@@ -396,15 +396,15 @@ class Order(base.ShopdeskBase):
 
     def issue_reference_s(self, easypay, force = False):
         appier.verify(
-            not self.entity or force,
+            not hasattr(self, "entity") or not self.entity or force,
             message = "There's an entity already set"
         )
         appier.verify(
-            not self.reference or force,
+            not hasattr(self, "reference") or not self.reference or force,
             message = "There's a reference already set"
         )
         appier.verify(
-            not self.reference_id or force,
+            not hasattr(self, "reference_id") or not self.reference_id or force,
             message = "There's a reference ID already set"
         )
         amount = float(self.s_total_price)
