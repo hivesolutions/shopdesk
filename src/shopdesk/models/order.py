@@ -439,12 +439,13 @@ class Order(base.ShopdeskBase):
         self.save()
         self.logger.debug("Canceled and reversed order '%s'" % self.s_name)
 
-    def note_reference_s(self, shopify):
+    def note_reference_s(self, shopify, full = True):
         order = shopify.get_order(self.s_id)
         note = order.get("note", None) or ""
         note += "Entity: %s\nReference: %s\nValue: %s\n" % (
             self.entity, self.reference, self.s_total_price
         )
+        if full: note += "Reference ID: %s\n" % self.reference_id
         shopify.update_order(self.s_id, note = note)
         self.note_sent = True
         self.save()
