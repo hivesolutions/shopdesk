@@ -368,7 +368,7 @@ class Order(base.ShopdeskBase):
         reference_id,
         *args, **kwargs
     ):
-        kwargs["sort"] = kwargs.get("sort", [("id", -1)])
+        kwargs["sort"] = kwargs.get("sort", [("s_id", -1)])
         if s_name: kwargs.update(s_name = s_name)
         if s_gateway: kwargs.update(s_gateway = s_gateway)
         if reference_id: kwargs.update(reference_id = reference_id)
