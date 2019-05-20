@@ -143,4 +143,6 @@ class Scheduler(appier.Scheduler):
             raise appier.OperationalError(
                 message = "No order found for identifier: '%s'" % identifier
             )
+        if not order:
+            self.logger.error("Order not found for identifier '%s'" % identifier)
         order.pay_s(self.shopify, strict = self.owner.strict)
