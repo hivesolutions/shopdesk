@@ -470,6 +470,12 @@ class Order(base.ShopdeskBase):
     def email_mime(self):
         return "%s <%s>" % (self.s_billing_name, self.s_email)
 
+    @appier.link(name = "Shopify")
+    def shopify_url(self, absolute = False):
+        shopify_store = appier.conf("SHOPIFY_STORE", None)
+        appier.verify(shopify_store)
+        return "https://%s/admin/orders/%s" % (shopify_store, self.s_id)
+
     @appier.operation(name = "Sync Shopify")
     def sync_shopify_s(self):
         """
