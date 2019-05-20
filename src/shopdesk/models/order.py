@@ -192,7 +192,9 @@ class Order(base.ShopdeskBase):
 
     reference_id = appier.field(
         index = True,
-        description = "Reference ID"
+        description = "Reference ID",
+        observations = """The internal MB reference to be used latter
+        in the marking operation of the MB (reference matching)"""
     )
 
     @classmethod
