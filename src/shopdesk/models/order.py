@@ -394,10 +394,19 @@ class Order(base.ShopdeskBase):
         if self.s_status == "pending": self.payment = Order.PENDING; return
         if self.s_status == "refunded": self.payment = Order.REFUNDED; return
 
-    def issue_reference_s(self, easypay):
-        appier.verify(not self.entity, message = "There's an entity already set")
-        appier.verify(not self.reference, message = "There's a reference already set")
-        appier.verify(not self.reference_id, message = "There's a reference ID already set")
+    def issue_reference_s(self, easypay, force = False):
+        appier.verify(
+            not self.entity or force,
+            message = "There's an entity already set"
+        )
+        appier.verify(
+            not self.reference or force,
+            message = "There's a reference already set"
+        )
+        appier.verify(
+            not self.reference_id or force,
+            message = "There's a reference ID already set"
+        )
         amount = float(self.s_total_price)
         reference = easypay.generate_mb(amount)
         self.entity = reference["entity"]
