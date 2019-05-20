@@ -474,7 +474,7 @@ class Order(base.ShopdeskBase):
     def shopify_url(self, absolute = False):
         shopify_store = appier.conf("SHOPIFY_STORE", None)
         appier.verify(shopify_store)
-        return "https://%s/admin/orders/%s" % (shopify_store, self.s_id)
+        return "https://%s/admin/orders/%d" % (shopify_store, self.s_id)
 
     @appier.operation(name = "Sync Shopify")
     def sync_shopify_s(self):
