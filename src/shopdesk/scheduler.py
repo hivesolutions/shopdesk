@@ -136,10 +136,11 @@ class Scheduler(appier.Scheduler):
         self.logger.debug("Sending confirmation emails for '%d' orders ..." % len(orders))
         for order in orders: order.email_confirmation_s()
 
-    def on_paid(self, reference, details):
+    def on_paid(self, reference, details, raise_e = True):
         identifier = reference["identifier"]
         order = shopdesk.Order.get(reference_id = identifier, raise_e = False)
-        if not order: raise appier.OperationalError(
-            message = "No order found for identifier: '%s'" % identifier
-        )
+        if not order and raise_e:
+            raise appier.OperationalError(
+                message = "No order found for identifier: '%s'" % identifier
+            )
         order.pay_s(self.shopify, strict = self.owner.strict)
