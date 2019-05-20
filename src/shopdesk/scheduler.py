@@ -136,7 +136,7 @@ class Scheduler(appier.Scheduler):
         self.logger.debug("Sending confirmation emails for '%d' orders ..." % len(orders))
         for order in orders: order.email_confirmation_s()
 
-    def on_paid(self, reference, details, raise_e = True):
+    def on_paid(self, reference, details, raise_e = False):
         identifier = reference["identifier"]
         order = shopdesk.Order.get(reference_id = identifier, raise_e = False)
         if not order and raise_e:
