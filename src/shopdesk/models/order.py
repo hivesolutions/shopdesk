@@ -395,6 +395,7 @@ class Order(base.ShopdeskBase):
         if self.s_status == "refunded": self.payment = Order.REFUNDED; return
 
     def issue_reference_s(self, easypay, force = False):
+        self.logger.debug("Generating reference for order '%s'" % self.s_name)
         appier.verify(
             not hasattr(self, "entity") or not self.entity or force,
             message = "There's an entity already set"
