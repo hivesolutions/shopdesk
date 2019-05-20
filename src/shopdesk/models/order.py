@@ -352,6 +352,33 @@ class Order(base.ShopdeskBase):
             page = appier.lazy(lambda: cls.paginate(*args, **kwargs))
         )
 
+    @classmethod
+    @appier.view(
+        name = "Explorer",
+        parameters = (
+            ("Name", "s_name", str),
+            ("Gateway", "s_gateway", str),
+            ("Reference ID", "reference_id", str)
+        )
+    )
+    def explorer_v(
+        cls,
+        s_name,
+        s_gateway,
+        reference_id,
+        *args, **kwargs
+    ):
+        kwargs["sort"] = kwargs.get("sort", [("id", -1)])
+        if s_name: kwargs.update(s_name = s_name)
+        if s_gateway: kwargs.update(s_gateway = s_gateway)
+        if reference_id: kwargs.update(reference_id = reference_id)
+        return appier.lazy_dict(
+            model = cls,
+            kwargs = kwargs,
+            entities = appier.lazy(lambda: cls.find(*args, **kwargs)),
+            page = appier.lazy(lambda: cls.paginate(*args, **kwargs))
+        )
+
     def pre_validate(self):
         appier_extras.admin.Base.pre_validate(self)
 
