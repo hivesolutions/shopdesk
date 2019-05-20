@@ -504,7 +504,6 @@ class Order(base.ShopdeskBase):
         self.s_status = order["financial_status"]
         self.s_fulfillment = order["fulfillment_status"]
         self.s_line_items = order.get("line_items", [])
-        if self.s_status == "pending": self.payment = Order.PENDING
         if self.s_status == "refunded": self.payment = Order.REFUNDED
         if self.s_status == "paid": self.payment = Order.PAID
         self.save()
