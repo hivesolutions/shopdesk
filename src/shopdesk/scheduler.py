@@ -139,4 +139,7 @@ class Scheduler(appier.Scheduler):
     def on_paid(self, reference, details):
         identifier = reference["identifier"]
         order = shopdesk.Order.get(reference_id = identifier, raise_e = False)
+        if not order: raise appier.OperationalError(
+            message = "No order found for identifier: '%s'" % identifier
+        )
         order.pay_s(self.shopify, strict = self.owner.strict)
