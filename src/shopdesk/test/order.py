@@ -43,7 +43,7 @@ class OrderTest(unittest.TestCase):
         self.assertEqual(order.s_email, "username@domain.com")
         self.assertEqual(order.s_billing_name, "name")
         self.assertEqual(order.s_gateway, "mb")
-        self.assertEqual(order.payment, None)
+        self.assertEqual(order.payment, shopdesk.Order.UNSET)
         self.assertEqual(order.note_sent, False)
         self.assertEqual(order.email_sent, False)
         self.assertEqual(order.warning_sent, False)
