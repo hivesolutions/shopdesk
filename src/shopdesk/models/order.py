@@ -11,6 +11,7 @@ from . import base
 
 class Order(base.ShopdeskBase):
 
+    UNSET = 0
     PENDING = 1
     ISSUED = 2
     PAID = 3
@@ -85,7 +86,9 @@ class Order(base.ShopdeskBase):
 
     s_status = appier.field(
         index = True,
-        description = "Status"
+        description = "Status",
+        observations = """Status of the order on the Shopify
+        side, should be related with the Shopdesk version"""
     )
 
     s_fulfillment = appier.field(
@@ -152,6 +155,7 @@ class Order(base.ShopdeskBase):
 
     payment = appier.field(
         type = int,
+        initial = 0,
         safe = True,
         index = True,
         meta = "enum",
@@ -504,6 +508,8 @@ class Order(base.ShopdeskBase):
         self.s_status = order["financial_status"]
         self.s_fulfillment = order["fulfillment_status"]
         self.s_line_items = order.get("line_items", [])
+        if self.s_status == "pending" and self.payment < Order.PENDING:
+            self.payment = Order.PENDING
         if self.s_status == "refunded": self.payment = Order.REFUNDED
         if self.s_status == "paid": self.payment = Order.PAID
         self.save()
