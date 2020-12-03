@@ -15,7 +15,7 @@ Shopdesk is currently licensed under the [Apache License, Version 2.0](http://ww
 
 ## Build Automation
 
-[![Build Status](https://travis-ci.org/hivesolutions/shopdesk.svg?branch=master)](https://travis-ci.org/hivesolutions/shopdesk)
+[![Build Status](https://travis-ci.com/hivesolutions/shopdesk.svg?branch=master)](https://travis-ci.com/hivesolutions/shopdesk)
 [![Coverage Status](https://coveralls.io/repos/hivesolutions/shopdesk/badge.svg?branch=master)](https://coveralls.io/r/hivesolutions/shopdesk?branch=master)
 [![PyPi Status](https://img.shields.io/pypi/v/shopdesk.svg)](https://pypi.python.org/pypi/shopdesk)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/)
