@@ -4,9 +4,9 @@
 	<comment></comment>
 	<projects>
 		<project>appier</project>
-		<project>appier_extras</project>
-		<project>easypay_api</project>
-		<project>shopify_api</project>
+		<project>appier-extras</project>
+		<project>easypay-api</project>
+		<project>shopify-api</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
