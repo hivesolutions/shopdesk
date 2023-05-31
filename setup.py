@@ -25,7 +25,7 @@ setuptools.setup(
         "" : os.path.normpath("src")
     },
     package_data = {
-        "budy" : [
+        "shopdesk" : [
             "static/css/*.css",
             "static/images/*",
             "static/images/email/*",
