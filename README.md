@@ -4,10 +4,10 @@ Another E-commerce back-office management infra-structure.
 
 ## Configuration
 
-| Name | Type | Description |
-| ----- | ----- | ----- |
-| **STRICT** | `bool` | If the strict mode should be used in order state update, more error proof (defaults to `True`). |
-| **SCHEDULER** | `bool` | If the order processing scheduler should be started at boot (default to `True`). |
+| Name          | Type   | Default | Description                                                                |
+| ------------- | ------ | ------- | -------------------------------------------------------------------------- |
+| **STRICT**    | `bool` | `True`  | If the strict mode should be used in order state update, more error proof. |
+| **SCHEDULER** | `bool` | `True`  | If the order processing scheduler should be started at boot.               |
 
 ## License
 
