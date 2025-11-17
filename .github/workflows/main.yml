@@ -30,8 +30,8 @@ jobs:
         if: matrix.python-version == '3.12'
       - run: |
           pip install pytest
-          pytest
-      - run: python setup.py test
+          ADAPTER=tiny pytest
+      - run: ADAPTER=tiny python setup.py test
         if: ${{ !contains(fromJson('["3.9", "3.10", "3.11", "3.12","latest"]'), matrix.python-version) }}
   build-pypy:
     name: Build PyPy
@@ -50,6 +50,6 @@ jobs:
         if: matrix.python-version == '3.12'
       - run: |
           pip install pytest
-          pytest
-      - run: pypy setup.py test
+          ADAPTER=tiny pytest
+      - run: ADAPTER=tiny pypy setup.py test
         if: ${{ !contains(fromJson('["3.9", "3.10", "3.11", "3.12","latest"]'), matrix.python-version) }}
