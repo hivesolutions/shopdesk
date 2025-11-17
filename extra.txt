@@ -1,2 +1,2 @@
 redis
-tinydb
+tinydb<4.5
