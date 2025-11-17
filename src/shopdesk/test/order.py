@@ -8,10 +8,11 @@ import appier
 
 import shopdesk
 
+
 class OrderTest(unittest.TestCase):
 
     def setUp(self):
-        self.app = shopdesk.ShopdeskApp(level = logging.ERROR)
+        self.app = shopdesk.ShopdeskApp(level=logging.ERROR)
 
     def tearDown(self):
         self.app.unload()
@@ -20,18 +21,18 @@ class OrderTest(unittest.TestCase):
 
     def test_shopify(self):
         order = dict(
-            id = 1,
-            name = "name",
-            total_price = "20.00",
-            currency = "EUR",
-            created_at = "2019-01-01T17:00:00+01:00",
-            financial_status = "pending",
-            fulfillment_status = "partial",
-            email = "username@domain.com",
-            billing_address = dict(name = "name"),
+            id=1,
+            name="name",
+            total_price="20.00",
+            currency="EUR",
+            created_at="2019-01-01T17:00:00+01:00",
+            financial_status="pending",
+            fulfillment_status="partial",
+            email="username@domain.com",
+            billing_address=dict(name="name"),
         )
-        transaction = dict(gateway = "mb")
-        order = shopdesk.Order.from_shopify(order, transactions = [transaction])
+        transaction = dict(gateway="mb")
+        order = shopdesk.Order.from_shopify(order, transactions=[transaction])
 
         self.assertEqual(order.s_id, 1)
         self.assertEqual(order.s_name, "name")

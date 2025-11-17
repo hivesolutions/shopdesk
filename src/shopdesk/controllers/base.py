@@ -3,6 +3,7 @@
 
 import appier
 
+
 class BaseController(appier.Controller):
 
     @appier.route("/notification", "GET")

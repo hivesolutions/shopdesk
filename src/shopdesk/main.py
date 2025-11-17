@@ -6,24 +6,22 @@ import appier_extras
 
 from shopdesk import scheduler
 
+
 class ShopdeskApp(appier.WebApp):
 
     def __init__(self, *args, **kwargs):
         appier.WebApp.__init__(
-            self,
-            name = "shopdesk",
-            parts = (
-                appier_extras.AdminPart,
-            ),
-            *args, **kwargs
+            self, name="shopdesk", parts=(appier_extras.AdminPart,), *args, **kwargs
         )
         self.scheduler = scheduler.Scheduler(self)
-        self.strict = appier.conf("STRICT", True, cast = bool)
+        self.strict = appier.conf("STRICT", True, cast=bool)
 
     def start(self):
         appier.WebApp.start(self)
-        scheduler = appier.conf("SCHEDULER", True, cast = bool)
-        if scheduler: self.scheduler.start()
+        scheduler = appier.conf("SCHEDULER", True, cast=bool)
+        if scheduler:
+            self.scheduler.start()
+
 
 if __name__ == "__main__":
     app = ShopdeskApp()

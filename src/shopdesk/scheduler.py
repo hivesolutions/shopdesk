@@ -25,23 +25,18 @@ WARNING_TIMEOUT = 1.0 * 24.0 * 3600.0
 be used to measure the amount of time before an order
 is considered to be warned and an email is sent """
 
+
 class Scheduler(appier.Scheduler):
 
     def __init__(
         self,
         owner,
-        order_timeout = ORDER_TIMEOUT,
-        warning_timeout = WARNING_TIMEOUT,
+        order_timeout=ORDER_TIMEOUT,
+        warning_timeout=WARNING_TIMEOUT,
         *args,
         **kwargs
     ):
-        appier.Scheduler.__init__(
-            self,
-            owner,
-            timeout = LOOP_TIMEOUT,
-            *args,
-            **kwargs
-        )
+        appier.Scheduler.__init__(self, owner, timeout=LOOP_TIMEOUT, *args, **kwargs)
         self.order_timeout = order_timeout
         self.warning_timeout = warning_timeout
 
@@ -64,10 +59,10 @@ class Scheduler(appier.Scheduler):
 
     def load_shopify(self):
         self.shopify = shopify.API(
-            api_key = appier.conf("SHOPIFY_API_KEY"),
-            password = appier.conf("SHOPIFY_PASSWORD"),
-            secret = appier.conf("SHOPIFY_SECRET"),
-            store_url = appier.conf("SHOPIFY_STORE")
+            api_key=appier.conf("SHOPIFY_API_KEY"),
+            password=appier.conf("SHOPIFY_PASSWORD"),
+            secret=appier.conf("SHOPIFY_SECRET"),
+            store_url=appier.conf("SHOPIFY_STORE"),
         )
 
     def load_easypay(self):
@@ -77,11 +72,12 @@ class Scheduler(appier.Scheduler):
 
     def check_orders(self):
         self.logger.debug("Checking shopify orders ...")
-        orders = self.shopify.list_orders(limit = 30)
+        orders = self.shopify.list_orders(limit=30)
         new_orders = []
         for order in orders:
-            _order = shopdesk.Order.get(s_id = order["id"], raise_e = False)
-            if _order: continue
+            _order = shopdesk.Order.get(s_id=order["id"], raise_e=False)
+            if _order:
+                continue
             new_orders.append(order)
         self.logger.debug("Found '%d' new shopify orders" % len(new_orders))
         for order in new_orders:
@@ -89,61 +85,63 @@ class Scheduler(appier.Scheduler):
             order_name = order["name"]
             self.logger.debug("Importing shopify order '%s' ..." % order_name)
             transactions = self.shopify.transactions_order(order_id)
-            _order = shopdesk.Order.from_shopify(order, transactions = transactions)
+            _order = shopdesk.Order.from_shopify(order, transactions=transactions)
             _order.save()
 
     def cancel_orders(self):
         expiration = time.time() - self.order_timeout
         orders = shopdesk.Order.find(
-            payment = shopdesk.Order.ISSUED,
-            created = {
-                "$lt" : expiration
-            }
+            payment=shopdesk.Order.ISSUED, created={"$lt": expiration}
         )
         self.logger.debug("Canceling '%d' outdated orders ..." % len(orders))
         for order in orders:
-            order.cancel_s(self.easypay, self.shopify, strict = self.owner.strict)
+            order.cancel_s(self.easypay, self.shopify, strict=self.owner.strict)
 
     def warn_orders(self):
         warning = time.time() - self.warning_timeout
         orders = shopdesk.Order.find(
-            payment = shopdesk.Order.ISSUED,
-            warning_sent = False,
-            created = {
-                "$lt" : warning
-            }
+            payment=shopdesk.Order.ISSUED, warning_sent=False, created={"$lt": warning}
         )
         self.logger.debug("Warning '%d' unpaid orders ..." % len(orders))
-        for order in orders: order.email_warning_s()
+        for order in orders:
+            order.email_warning_s()
 
     def issue_references(self):
-        orders = shopdesk.Order.find(payment = shopdesk.Order.PENDING)
+        orders = shopdesk.Order.find(payment=shopdesk.Order.PENDING)
         self.logger.debug("Issuing references for '%d' orders ..." % len(orders))
-        for order in orders: order.issue_reference_s(self.easypay)
+        for order in orders:
+            order.issue_reference_s(self.easypay)
 
     def note_references(self):
-        orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, note_sent = False)
+        orders = shopdesk.Order.find(payment=shopdesk.Order.ISSUED, note_sent=False)
         self.logger.debug("Noting down '%d' orders ..." % len(orders))
-        for order in orders: order.note_reference_s(self.shopify)
+        for order in orders:
+            order.note_reference_s(self.shopify)
 
     def email_references(self):
-        orders = shopdesk.Order.find(payment = shopdesk.Order.ISSUED, email_sent = False)
+        orders = shopdesk.Order.find(payment=shopdesk.Order.ISSUED, email_sent=False)
         self.logger.debug("Sending emails for '%d' orders ..." % len(orders))
-        for order in orders: order.email_reference_s()
+        for order in orders:
+            order.email_reference_s()
 
     def email_confirmations(self):
-        orders = shopdesk.Order.find(payment = shopdesk.Order.PAID, confirmation_sent = False)
-        self.logger.debug("Sending confirmation emails for '%d' orders ..." % len(orders))
-        for order in orders: order.email_confirmation_s()
+        orders = shopdesk.Order.find(
+            payment=shopdesk.Order.PAID, confirmation_sent=False
+        )
+        self.logger.debug(
+            "Sending confirmation emails for '%d' orders ..." % len(orders)
+        )
+        for order in orders:
+            order.email_confirmation_s()
 
-    def on_paid(self, reference, details, raise_e = True):
+    def on_paid(self, reference, details, raise_e=True):
         identifier = reference["identifier"]
-        order = shopdesk.Order.get(reference_id = identifier, raise_e = False)
+        order = shopdesk.Order.get(reference_id=identifier, raise_e=False)
         if not order and raise_e:
             raise appier.OperationalError(
-                message = "No order found for identifier: '%s'" % identifier
+                message="No order found for identifier: '%s'" % identifier
             )
         if not order:
             self.logger.error("No order found for identifier '%s'" % identifier)
             return
-        order.pay_s(self.shopify, strict = self.owner.strict)
+        order.pay_s(self.shopify, strict=self.owner.strict)

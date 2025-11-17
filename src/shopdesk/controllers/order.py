@@ -7,86 +7,76 @@ import easypay
 
 import shopdesk
 
+
 class OrderController(appier.Controller):
 
-    @appier.route("/orders/generate_mb.json", "GET", json = True)
-    @appier.ensure(token = "admin")
+    @appier.route("/orders/generate_mb.json", "GET", json=True)
+    @appier.ensure(token="admin")
     def generate_mb_json(self):
         amount = self.field("amount", "10.0")
         easypay = self.get_easypay()
         reference = easypay.generate_mb(amount)
         return reference
 
-    @appier.route("/orders/checker", "GET", json = True)
-    @appier.ensure(token = "admin")
+    @appier.route("/orders/checker", "GET", json=True)
+    @appier.ensure(token="admin")
     def checker(self):
-        object = appier.get_object(
-            alias = True,
-            find = True,
-            limit = 0,
-            sort = [("s_id", -1)]
-        )
+        object = appier.get_object(alias=True, find=True, limit=0, sort=[("s_id", -1)])
         orders = self.admin_part._find_view(shopdesk.Order, **object)
-        return self.template(
-            "order/checker.html.tpl",
-            orders = orders
-        )
+        return self.template("order/checker.html.tpl", orders=orders)
 
     @appier.route("/orders/ctt.csv", "GET")
-    @appier.ensure(token = "admin")
+    @appier.ensure(token="admin")
     def ctt_csv(self):
-        paid = self.field("paid", True, cast = bool)
-        sms = self.field("sms", False, cast = bool)
-        quantity = self.field("quantity", 1, cast = int)
-        weight = self.field("weight", 100, cast = int)
-        object = appier.get_object(
-            alias = True,
-            find = True,
-            limit = 0,
-            sort = [("s_id", -1)]
-        )
-        if paid: object["payment"] = shopdesk.Order.PAID
+        paid = self.field("paid", True, cast=bool)
+        sms = self.field("sms", False, cast=bool)
+        quantity = self.field("quantity", 1, cast=int)
+        weight = self.field("weight", 100, cast=int)
+        object = appier.get_object(alias=True, find=True, limit=0, sort=[("s_id", -1)])
+        if paid:
+            object["payment"] = shopdesk.Order.PAID
         orders = self.admin_part._find_view(shopdesk.Order, **object)
         orders_s = []
         for order in orders:
             s_shipping_zip = order.s_shipping_zip or ""
-            if not "-" in s_shipping_zip: s_shipping_zip += "-"
+            if not "-" in s_shipping_zip:
+                s_shipping_zip += "-"
             weight_s = "%.2f" % (order.s_quantity * weight)
             weight_s = weight_s.replace(".", ",")
             line = dict(
-                reference = order.s_name,
-                quantity = int(order.s_quantity) if quantity == None else quantity,
-                weight = weight_s,
-                price = "0ue",
-                destiny = order.s_shipping_name[:60],
-                title = "",
-                name = order.s_shipping_name[:60],
-                address = order.s_shipping_street[:60],
-                town = order.s_shipping_city[:50],
-                zip_code_4 = s_shipping_zip.split("-", 1)[0][:4],
-                zip_code_3 = s_shipping_zip.split("-", 1)[1][:3],
-                not_applicable_1 = "",
-                observations = "",
-                back = 0,
-                document_code = "",
-                phone_number = "",
-                saturday = 0,
-                email = (order.s_email or "")[:200],
-                country = order.s_shipping_country_code,
-                fragile = 0,
-                not_applicable_2 = "",
-                document_collection = "",
-                code_email = "",
-                mobile_phone = "",
-                second_delivery = 0,
-                delivery_date = "",
-                return_signed_document = 0,
-                expeditor_instructions = 0,
-                sms = 1 if sms else 0,
-                not_applicable_3 = "",
-                printer = "",
-                ticket_machine = "",
-                at_code = ""
+                reference=order.s_name,
+                quantity=int(order.s_quantity) if quantity == None else quantity,
+                weight=weight_s,
+                price="0ue",
+                destiny=order.s_shipping_name[:60],
+                title="",
+                name=order.s_shipping_name[:60],
+                address=order.s_shipping_street[:60],
+                town=order.s_shipping_city[:50],
+                zip_code_4=s_shipping_zip.split("-", 1)[0][:4],
+                zip_code_3=s_shipping_zip.split("-", 1)[1][:3],
+                not_applicable_1="",
+                observations="",
+                back=0,
+                document_code="",
+                phone_number="",
+                saturday=0,
+                email=(order.s_email or "")[:200],
+                country=order.s_shipping_country_code,
+                fragile=0,
+                not_applicable_2="",
+                document_collection="",
+                code_email="",
+                mobile_phone="",
+                second_delivery=0,
+                delivery_date="",
+                return_signed_document=0,
+                expeditor_instructions=0,
+                sms=1 if sms else 0,
+                not_applicable_3="",
+                printer="",
+                ticket_machine="",
+                at_code="",
             )
             order_s = (
                 line["reference"],
@@ -121,20 +111,13 @@ class OrderController(appier.Controller):
                 line["not_applicable_3"],
                 line["printer"],
                 line["ticket_machine"],
-                line["at_code"]
+                line["at_code"],
             )
             orders_s.append(order_s)
         result = appier.serialize_csv(
-            orders_s,
-            encoding = "Cp1252",
-            errors = "ignore",
-            delimiter = "+"
+            orders_s, encoding="Cp1252", errors="ignore", delimiter="+"
         )
-        result = appier.legacy.bytes(
-            result,
-            encoding = "Cp1252",
-            errors = "ignore"
-        )
+        result = appier.legacy.bytes(result, encoding="Cp1252", errors="ignore")
         self.content_type("text/csv")
         return result
 
