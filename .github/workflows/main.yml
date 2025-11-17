@@ -26,6 +26,7 @@ jobs:
       - run: |
           pip install -r requirements.txt
           pip install -r extra.txt
+          pip install "tinydb<4.5"
       - run: |
           pip install black
           black . --check
@@ -48,6 +49,7 @@ jobs:
       - run: |
           pip install -r requirements.txt
           pip install -r extra.txt
+          pip install "tinydb<4.5"
       - run: |
           pip install black
           black . --check
